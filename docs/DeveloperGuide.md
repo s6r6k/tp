@@ -58,7 +58,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -101,10 +101,10 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
+3. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -262,71 +262,125 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of patient contacts, and appointments.
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage patient details like chronic conditions, severe allergies, and appointment scheduling faster than a typical mouse/GUI driven app
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
-
-*{More to be added}*
-
+| Priority | As a …​                | I want to …​                                                                           | So that I can…​                                                       |
+|----------|------------------------|----------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| `* * *`  | Doctor                 | add a patient's chronic condition                                                      | provide informed care                                                 |
+| `* * *`  | Doctor                 | add an appointment date to a patient                                                   | track my daily schedule                                               |
+| `* * *`  | Doctor                 | delete a patient record                                                                | keep my database clean of inactive patients                           |
+| `* * *`  | Doctor                 | initialize a new empty data file                                                       | start using the system without manual setup                           |
+| `* * *`  | Doctor                 | see sample usage instructions on first launch                                          | learn the system quickly                                              |
+| `* * *`  | Doctor                 | load an existing data file                                                             | continue work across sessions                                         |
+| `* * *`  | Doctor                 | receive a clear error message and correction technique when I enter an invalid command | fix my command                                                        |
+| `* * *`  | Less Tech Savvy Doctor | want the program to work immediately after opening                                     | don't have to install or configure anything                           |
+| `* * *`  | New User               | view a list of available commands                                                      | know what actions are possible                                        |
+| `* *`    | Doctor                 | edit a patient's record                                                                | keep my database updated to the newest information                    |
+| `* *`    | Doctor                 | be alerted if I book two appointments at the same time                                 | avoid double-booking myself                                           |
+| `* *`    | Doctor                 | input command arguments in any order                                                   | don't have to memorize rigid syntax                                   |
+| `* *`    | Doctor                 | tag a patient with 'High Risk'                                                         | am extra cautious when reviewing their file                           |
+| `* *`    | Doctor                 | mark an allergy as "Severe"                                                            | it stands out visually when I open the patient profile                |
+| `* *`    | Doctor                 | be warned before permanently deleting a patient record                                 | don't lose data accidentally                                          |
+| `* *`    | Doctor                 | be told when a search returns no results                                               | know the system is working correctly                                  |
+| `* *`    | Doctor                 | record a patient's blood type                                                          | provide it quickly in an emergency                                    |
+| `*`      | Doctor                 | list all patients with a specific allergy                                              | avoid prescribing dangerous medication during an outbreak or shortage |
+| `*`      | Doctor                 | search for a patient by a partial or misspelled name                                   | find records quickly even if I don't remember the exact spelling      |
+| `*`      | Doctor                 | use command aliases (e.g., a for add)                                                  | minimize typing time while talking to a patient                       |
+| `*`      | Doctor                 | list all patients taking a specific medication                                         | contact them if that drug is recalled                                 |
+| `*`      | Doctor                 | add a "Next Checkup" date                                                              | follow up on chronic condition progress                               |
+| `*`      | Doctor                 | scrub "soft deleted" data permanently                                                  | comply with "right to be forgotten" regulations                       |
+| `*`      | Doctor                 | link related patients                                                                  | review hereditary patterns                                            |
+| `*`      | Doctor                 | attach external specialist notes                                                       | have a full care picture                                              |
+| `*`      | Tech Savvy Doctor      | chain commands together                                                                | add a patient and their first appointment in one line                 |
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `DoctorWho` and the **Actor** is the `Doctor`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Schedule an appointment for an existing patient**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-
-    Use case ends.
+1. Doctor searches for a patient by name. 
+2. DoctorWho displays a list of matching patients. 
+3. Doctor identifies the correct patient's index. 
+4. Doctor requests to add an appointment for that index with a date, time, and duration. 
+5. DoctorWho adds the appointment and displays a success message.
+<br>Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. The list is empty (_i.e._ no patients found). 
+  * 2a1. DoctorWho shows an empty list. 
+  * 2a2. Doctor uses the add command to create a new patient (Refer to Add Patient use case). 
+  <br>Use case resumes at step 4.
 
-  Use case ends.
+* 4a. The requested time slot overlaps with an existing appointment. 
+  * 4a1. DoctorWho displays a warning message about the overlap. 
+  * 4a2. DoctorWho adds the appointment anyway (system allows flexible scheduling).
+  <br>Use case ends.
 
-* 3a. The given index is invalid.
+* 4b. The patient index is invalid. 
+  * 4b1. DoctorWho shows an error message.
+  <br>Use case resumes at step 3.
 
-    * 3a1. AddressBook shows an error message.
+**Use case: Add an allergy to a patient**
 
-      Use case resumes at step 2.
+**MSS**
 
-*{More to be added}*
+1. Doctor requests to list all patients. 
+2. DoctorWho shows the list of patients. 
+3. Doctor identifies the patient and uses the command to add a new allergy tag. 
+4. DoctorWho updates the patient record and displays the new allergy in the detail panel.
+<br>Use case ends.
+
+Extensions
+
+* 3a. The patient already has the specified allergy listed. 
+  * 3a1. DoctorWho shows an error message: "Patient already has the allergy."
+  <br>Use case resumes at step 3.
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed. 
+2. Should be able to hold up to 1000 patient records without a noticeable sluggishness in performance for typical usage.  
+3. A user with a typing speed of at least 50 WPM should be able to complete any mandatory CRUD task (e.g., adding a patient) faster than an equivalent GUI.
+4. Data must be saved locally in a human-readable JSON format to allow for manual inspection or external backup without using the app. 
+5. The system should handle corrupted data files by notifying the user and failing gracefully rather than crashing.
+6. The system should be fully functional in an offline environment with no dependency on external servers or internet connectivity.
+7. The system must be developed incrementally, ensuring that the `master` branch always contains a stable, runnable version of the product.
 
 *{More to be added}*
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Mainstream OS**: Windows, Linux, Unix, macOS. (Relevant to *Setting up*)
+* **GUI (Graphical User Interface)**: A visual interface that allows users to interact with the software through graphical elements like windows, buttons, and icons. (Relevant to *Architecture/UI*)
+* **CLI (Command Line Interface)**: A text-based interface where the user provides input by typing commands. (Relevant to *Architecture/Logic*)
+* **JavaFX**: The software platform and graphical library used to build the DoctorWho desktop interface. (Relevant to *UI Component*)
+* **Prefix**: A short identifier followed by a forward slash (_e.g._ `d/` for date) used to define arguments in a command. (Relevant to *Logic Component*)
+* **Prefix-based Matching**: A parsing technique where data fields are identified by short leading characters (e.g., `n/` for Name) rather than by their position in a sequence. (Relevant to *Logic Component*)
+* **Medical Tag**: A general term encompassing both **Conditions** (_e.g._ Diabetes) and **Allergies** (_e.g._ Penicillin). (Relevant to *Model Component*)
+* **JSON**: JavaScript Object Notation, a text-based interchange data format, for storing or transmitting data. (Relevant to *Storage Component*)
+* **CRUD**: An acronym for Create, Read, Update, and Delete—the four basic functions of persistent storage. (Relevant to *Implementation*)
+* **MVP**: Minimum Viable Product; the core set of features required to make the app functional for Dr. Lee. (Relevant to *Appendix: Requirements*)
+* **Private contact detail**: A contact detail that is not meant to be shared with others. (Relevant to *User Stories*)
+* **Index**: A positive integer representing the position of an item in the currently displayed list in the UI. (Relevant to *Use Cases*)
+* **Overlap**: A situation where a new appointment's time interval (start time + duration) intersects with an existing appointment's interval. (Relevant to *Use Cases*)
+* **ISO 8601**: The international standard for the representation of dates and times (_e.g._ `YYYY-MM-DD`). (Relevant to *Use Cases/NFRs*)
+* **NFR (Non-Functional Requirement)**: A requirement that specifies criteria that can be used to judge the operation of a system, rather than specific behaviors (_e.g._ security, reliability). (Relevant to *NFR Section*)
+* **Scalability**: The measure of the system's ability to handle a growing amount of data (_e.g._ thousands of patients) without performance degradation. (Relevant to *NFR Section*)
+* **Orphan Schedule**: An appointment record that remains in the system after the associated patient has been deleted. DoctorWho prevents this via automated purging. (Relevant to *NFR Section*)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -345,16 +399,16 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+3. _{ more test cases …​ }_
 
 ### Deleting a person
 
@@ -362,16 +416,16 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
+   2. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   3. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+2. _{ more test cases …​ }_
 
 ### Saving data
 
@@ -379,4 +433,4 @@ testers are expected to do more *exploratory* testing.
 
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases …​ }_
+2. _{ more test cases …​ }_
