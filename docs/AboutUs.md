@@ -52,8 +52,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/kenokk3003.png" width="200px">
 
-[[github](http://github.com/kenokk3003)]
-[[portfolio](team/kenokk3003.md)]
+[[github](http://github.com/KenOKK3003)]
+[[portfolio](team/KenOKK3003.md)]
 
 * Role: Code Quality Lead
 * Responsibilities: Ensures code quality is met at all stages of coding.
