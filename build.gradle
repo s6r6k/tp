@@ -70,3 +70,9 @@ shadowJar {
 }
 
 defaultTasks 'clean', 'test'
+
+tasks.named('run') {
+    jvmArgs = [
+        '-Dprism.order=sw'
+    ]
+}
