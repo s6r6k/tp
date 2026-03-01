@@ -27,34 +27,15 @@ You can reach us at the email `doctorwho[at]comp.nus.edu.sg`
 
 * Role: Integration + QA
 
-### Jane Doe
+### Khoo Jing Xi
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/verudex.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/verudex)]
 
-* Role: Team Lead
-* Responsibilities: UI
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Data
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Role: Scheduling and tracking
+* Responsibilities: Defining, assigning, and tracking project tasks
+* Hobbies: Exploring the world, Discovering good food, Some sports
 
 ### Kenneth Ong
 
@@ -66,7 +47,7 @@ You can reach us at the email `doctorwho[at]comp.nus.edu.sg`
 * Role: Code Quality Lead
 * Responsibilities: Ensures code quality is met at all stages of coding.
 
-### Sara Khan 
+### Sara Khan
 
 <img src="images/s6r6k.png" width="200px">
 
