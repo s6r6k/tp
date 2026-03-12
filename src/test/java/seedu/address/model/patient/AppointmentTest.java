@@ -64,7 +64,7 @@ public class AppointmentTest {
     }
 
     @Test
-    public void constructor_invalidDurationFailure() {
+    public void constructor_invalidDuration_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () ->
                 new Appointment(VALID_START, 0, VALID_NOTE));
 
@@ -73,13 +73,13 @@ public class AppointmentTest {
     }
 
     @Test
-    public void constructor_invalidNoteFailure() {
+    public void constructor_invalidNote_throwsIllegalArgumentException() {
         assertThrows(NullPointerException.class, () ->
                 new Appointment(VALID_START, VALID_DURATION, null));
     }
 
     @Test
-    public void constructor_parsingFailure() {
+    public void constructor_invalidStartDate_throwsIllegalArgumentException() {
         String wrongPattern = "2026-03-12 14:00";
         assertThrows(IllegalArgumentException.class, () ->
                 new Appointment(wrongPattern, VALID_DURATION, VALID_NOTE));
@@ -97,7 +97,7 @@ public class AppointmentTest {
     }
 
     @Test
-    public void isOverlapping() {
+    public void isOverlapping_overlappingAppointment_returnsTrue() {
         Appointment appt = new Appointment("12-03-2026 14:00", 60, VALID_NOTE); // 14:00 - 15:00
 
         // Overlaps: Starts during appt
@@ -105,6 +105,11 @@ public class AppointmentTest {
 
         // Overlaps: Ends during appt
         assertTrue(appt.isOverlapping(new Appointment("12-03-2026 13:30", 45, "Overlap")));
+    }
+
+    @Test
+    public void isOverlapping_nonOverlappingAppointment_returnsFalse() {
+        Appointment appt = new Appointment("12-03-2026 14:00", 60, VALID_NOTE); // 14:00 - 15:00
 
         // Does not overlap: Back-to-back
         assertFalse(appt.isOverlapping(new Appointment("12-03-2026 15:00", 30, "Follow-up")));
