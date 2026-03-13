@@ -9,7 +9,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Patient;
+import seedu.address.model.patient.Patient;
 
 /**
  * Deletes the appointment of the patient identified by the displayed index from the address book.
@@ -53,19 +53,18 @@ public class DeleteAppointmentCommand extends Command {
         }
 
         Patient personToEdit = lastShownList.get(targetIndex.getZeroBased());
-
-         if (personToEdit.getAppointment().isEmpty()) {
-             throw new CommandException(MESSAGE_NO_APPOINTMENT);
-         }
+        if (personToEdit.getAppointment().isEmpty()) {
+            throw new CommandException(MESSAGE_NO_APPOINTMENT);
+        }
 
         Patient updatedPerson = new Patient(
-                 personToEdit.getName(),
-                 personToEdit.getPhone(),
-                 personToEdit.getEmail(),
-                 personToEdit.getAddress(),
-                 personToEdit.getTags(),
-                 null
-         );
+            personToEdit.getName(),
+            personToEdit.getPhone(),
+            personToEdit.getEmail(),
+            personToEdit.getAddress(),
+            personToEdit.getTags(),
+            null
+        );
 
         model.setPerson(personToEdit, updatedPerson);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
