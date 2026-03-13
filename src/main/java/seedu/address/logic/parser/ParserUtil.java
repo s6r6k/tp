@@ -115,6 +115,13 @@ public class ParserUtil {
         }
         return new GeneralTag(trimmedTag);
     }
+
+    /**
+     * Parses a {@code String allergy} into an {@code Allergy}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code allergy} is invalid.
+     */
     public static Allergy parseAllergy(String allergy) throws ParseException {
         requireNonNull(allergy);
         String trimmedTag = allergy.trim();
@@ -124,6 +131,12 @@ public class ParserUtil {
         return new Allergy(trimmedTag);
     }
 
+    /**
+     * Parses a {@code String condition} into a {@code MedicalCondition}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code condition} is invalid.
+     */
     public static MedicalCondition parseMedicalCondition(String condition) throws ParseException {
         requireNonNull(condition);
         String trimmedTag = condition.trim();
