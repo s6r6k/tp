@@ -34,4 +34,25 @@ public class JsonAdaptedTagTest {
 
         assertEquals(GeneralTag.class, modelTag.getClass());
     }
+
+    @Test
+    public void toModelType_invalidTag_throwsException() {
+        JsonAdaptedTag adaptedTag = new JsonAdaptedTag("#invalid");
+
+        org.junit.jupiter.api.Assertions.assertThrows(
+                seedu.address.commons.exceptions.IllegalValueException.class,
+                adaptedTag::toModelType
+        );
+    }
+
+    @Test
+    public void constructor_fromModelTag_createsCorrectType() throws Exception {
+        Tag allergy = new Allergy("peanut");
+        JsonAdaptedTag adaptedTag = new JsonAdaptedTag(allergy);
+
+        Tag result = adaptedTag.toModelType();
+
+        assertEquals(Allergy.class, result.getClass());
+    }
+
 }
