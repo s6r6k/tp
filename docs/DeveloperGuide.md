@@ -352,16 +352,6 @@ Extensions
   * 3a1. DoctorWho shows an error message: "Patient already has the allergy."
   <br>Use case resumes at step 3.
 
-### Non-Functional Requirements
-
-1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed. 
-2. Should be able to hold up to 1000 patient records without a noticeable sluggishness in performance for typical usage.  
-3. A user with a typing speed of at least 50 WPM should be able to complete any mandatory CRUD task (e.g., adding a patient) faster than an equivalent GUI.
-4. Data must be saved locally in a human-readable JSON format to allow for manual inspection or external backup without using the app. 
-5. The system should handle corrupted data files by notifying the user and failing gracefully rather than crashing.
-6. The system should be fully functional in an offline environment with no dependency on external servers or internet connectivity.
-
-
 **Use case: Delete a patient**
 
 **MSS**
@@ -371,12 +361,21 @@ Extensions
 4. DoctorWho removes the specified patient from the system.
 5. DoctorWho removes all appointments associated with that patient.
 6. DoctorWho displays a confirmation message indicating the patient has been deleted.
-<br>Use case ends.
+   <br>Use case ends.
 
 **Extensions**
 * 3a. The specified INDEX is invalid.
-  * 3a1.DoctorWho displays an error message indicating that the index is invalid.
-  <br>Use case ends.
+    * 3a1.DoctorWho displays an error message indicating that the index is invalid.
+      <br>Use case ends.
+
+### Non-Functional Requirements
+
+1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed. 
+2. Should be able to hold up to 1000 patient records without a noticeable sluggishness in performance for typical usage.  
+3. A user with a typing speed of at least 50 WPM should be able to complete any mandatory CRUD task (e.g., adding a patient) faster than an equivalent GUI.
+4. Data must be saved locally in a human-readable JSON format to allow for manual inspection or external backup without using the app. 
+5. The system should handle corrupted data files by notifying the user and failing gracefully rather than crashing.
+6. The system should be fully functional in an offline environment with no dependency on external servers or internet connectivity.
 
 ### Glossary
 
