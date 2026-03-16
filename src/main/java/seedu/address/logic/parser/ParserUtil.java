@@ -102,9 +102,77 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String allergy} into an {@code Allergy}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @throws ParseException if the given {@code allergy} is invalid.
+     */
+    public static Set<Tag> parseAllergies(Collection<String> tags) throws ParseException {
+        requireNonNull(tags);
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Allergy(parseTag(tagName).tagName));
+        }
+        return tagSet;
+    }
+
+    /**
+     * Parses a {@code String allergy} into an {@code Allergy}.
+     * @throws ParseException if the given {@code allergy} is invalid.
+     */
+    public static Allergy parseAllergy(String allergy) throws ParseException {
+        requireNonNull(allergy);
+        String trimmedAllergy = allergy.trim();
+        if (!Tag.isValidTagName(trimmedAllergy)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new Allergy(trimmedAllergy);
+    }
+
+    /**
+     * Parses a {@code String condition} into a {@code MedicalCondition}.
+     * @throws ParseException if the given {@code condition} is invalid.
+     */
+    public static MedicalCondition parseMedicalCondition(String condition) throws ParseException {
+        requireNonNull(condition);
+        String trimmedCondition = condition.trim();
+        if (!Tag.isValidTagName(trimmedCondition)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new MedicalCondition(trimmedCondition);
+    }
+
+    /**
+     * Parses a {@code String condition} into a {@code MedicalCondition}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code condition} is invalid.
+     */
+    public static Set<Tag> parseMedicalConditions(Collection<String> tags) throws ParseException {
+        requireNonNull(tags);
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new MedicalCondition(parseTag(tagName).tagName));
+        }
+        return tagSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     *
+     * @throws ParseException if any given {@code tag} is invalid.
+     */
+    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+        requireNonNull(tags);
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(parseTag(tagName));
+        }
+        return tagSet;
+    }
+
+    /**
+     * Parses a {@code String tag} into a {@code Tag}
      * @throws ParseException if the given {@code tag} is invalid.
      */
     public static Tag parseTag(String tag) throws ParseException {
@@ -114,48 +182,6 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new GeneralTag(trimmedTag);
-    }
-
-    /**
-     * Parses a {@code String allergy} into an {@code Allergy}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code allergy} is invalid.
-     */
-    public static Allergy parseAllergy(String allergy) throws ParseException {
-        requireNonNull(allergy);
-        String trimmedTag = allergy.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Allergy(trimmedTag);
-    }
-
-    /**
-     * Parses a {@code String condition} into a {@code MedicalCondition}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code condition} is invalid.
-     */
-    public static MedicalCondition parseMedicalCondition(String condition) throws ParseException {
-        requireNonNull(condition);
-        String trimmedTag = condition.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new MedicalCondition(trimmedTag);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
-        }
-        return tagSet;
     }
 
     /**

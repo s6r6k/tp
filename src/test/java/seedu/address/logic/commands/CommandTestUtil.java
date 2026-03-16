@@ -3,10 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_STARTTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICALCONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -56,6 +58,18 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String VALID_ALLERGY_DUST = "dust";
+    public static final String VALID_ALLERGY_POLLEN = "pollen";
+    public static final String VALID_MEDICALCONDITION_DIABETES = "diabetes";
+    public static final String VALID_MEDICALCONDITION_ASTHMA = "asthma";
+
+    public static final String ALLERGY_DESC_DUST = " " + PREFIX_ALLERGY + VALID_ALLERGY_DUST;
+    public static final String ALLERGY_DESC_POLLEN = " " + PREFIX_ALLERGY + VALID_ALLERGY_POLLEN;
+    public static final String MEDICALCONDITION_DESC_DIABETES = " " + PREFIX_MEDICALCONDITION
+            + VALID_MEDICALCONDITION_DIABETES;
+    public static final String INVALID_ALLERGY_DESC = " " + PREFIX_ALLERGY + "dust*"; // '*' not allowed in allergies
+    public static final String INVALID_MEDICALCONDITION_DESC = " " + PREFIX_MEDICALCONDITION + "diab*";
 
     /* ===================== Appointment ===================== */
 

@@ -147,6 +147,74 @@ public class EditCommandTest {
     }
 
     @Test
+    public void execute_editGeneralTagOnly_keepsOtherTags() {
+        Patient patientToEdit = new PatientBuilder().withTags("friend")
+                .withAllergies("dust").withMedicalConditions("diabetes").build();
+        model.addPerson(patientToEdit);
+        Index lastIndex = Index.fromOneBased(model.getFilteredPersonList().size());
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags("colleague").build();
+        EditCommand editCommand = new EditCommand(lastIndex, descriptor);
+
+        Patient expectedPatient = new PatientBuilder().withTags("colleague")
+                .withAllergies("dust").withMedicalConditions("diabetes").build();
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(expectedPatient));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(patientToEdit, expectedPatient);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_editAllergyOnly_keepsOtherTags() {
+        Patient patientToEdit = new PatientBuilder().withTags("friend")
+                .withAllergies("dust").withMedicalConditions("diabetes").build();
+        model.addPerson(patientToEdit);
+        Index lastIndex = Index.fromOneBased(model.getFilteredPersonList().size());
+
+        // edit allergies only
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withAllergies("pollen").build();
+        EditCommand editCommand = new EditCommand(lastIndex, descriptor);
+
+        // only allergies change, rest of tags stay
+        Patient expectedPatient = new PatientBuilder().withTags("friend")
+                .withAllergies("pollen").withMedicalConditions("diabetes").build();
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(expectedPatient));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(patientToEdit, expectedPatient);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_editMedicalConditionOnly_keepsOtherTags() {
+        Patient patientToEdit = new PatientBuilder().withTags("friend")
+                .withAllergies("dust").withMedicalConditions("diabetes").build();
+        model.addPerson(patientToEdit);
+        Index lastIndex = Index.fromOneBased(model.getFilteredPersonList().size());
+
+        // edit allergies only
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withMedicalConditions("asthma").build();
+        EditCommand editCommand = new EditCommand(lastIndex, descriptor);
+
+        // only mc change, rest of tags stay
+        Patient expectedPatient = new PatientBuilder().withTags("friend")
+                .withAllergies("dust").withMedicalConditions("asthma").build();
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(expectedPatient));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(patientToEdit, expectedPatient);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void equals() {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
