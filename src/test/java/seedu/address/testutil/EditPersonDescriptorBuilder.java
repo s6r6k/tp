@@ -10,7 +10,9 @@ import seedu.address.model.patient.Email;
 import seedu.address.model.patient.Name;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.Phone;
+import seedu.address.model.tag.Allergy;
 import seedu.address.model.tag.GeneralTag;
+import seedu.address.model.tag.MedicalCondition;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -37,7 +39,21 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(patient.getPhone());
         descriptor.setEmail(patient.getEmail());
         descriptor.setAddress(patient.getAddress());
-        descriptor.setTags(patient.getTags());
+
+        Set<Tag> existingTags = patient.getTags();
+        Set<Tag> generalTags = existingTags.stream()
+                .filter(t -> t instanceof GeneralTag)
+                .collect(Collectors.toSet());
+        Set<Tag> allergies = existingTags.stream()
+                .filter(t -> t instanceof Allergy)
+                .collect(Collectors.toSet());
+        Set<Tag> medicalConditions = existingTags.stream()
+                .filter(t -> t instanceof MedicalCondition)
+                .collect(Collectors.toSet());
+
+        descriptor.setGeneralTags(generalTags);
+        descriptor.setAllergies(allergies);
+        descriptor.setMedicalConditions(medicalConditions);
     }
 
     /**
@@ -73,12 +89,32 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} into a {@code Set<GeneralTag>} and sets it to the {@code EditPersonDescriptor}
      * that we are building.
      */
     public EditPersonDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(GeneralTag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+        descriptor.setGeneralTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code allergies} into a {@code Set<Allergy>} and sets it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withAllergies(String... allergies) {
+        Set<Tag> allergySet = Stream.of(allergies).map(Allergy::new).collect(Collectors.toSet());
+        descriptor.setAllergies(allergySet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code conditions} into a {@code Set<MedicalCondition>} and sets it to the
+     * {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withMedicalConditions(String... conditions) {
+        Set<Tag> conditionSet = Stream.of(conditions).map(MedicalCondition::new).collect(Collectors.toSet());
+        descriptor.setMedicalConditions(conditionSet);
         return this;
     }
 

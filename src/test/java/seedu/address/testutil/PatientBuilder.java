@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -101,6 +102,28 @@ public class PatientBuilder {
      */
     public PatientBuilder withAppointment(Appointment appointment) {
         this.appointment = appointment;
+        return this;
+    }
+
+    /**
+     * Parses the {@code allergies} into a {@code Set<Allergy>}
+     */
+    public PatientBuilder withAllergies(String... allergies) {
+        Set<Tag> allergySet = Arrays.stream(allergies)
+                .map(seedu.address.model.tag.Allergy::new)
+                .collect(java.util.stream.Collectors.toSet());
+        this.tags.addAll(allergySet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code conditions} into a {@code Set<MedicalCondition>}
+     */
+    public PatientBuilder withMedicalConditions(String... conditions) {
+        Set<Tag> conditionSet = Arrays.stream(conditions)
+                .map(seedu.address.model.tag.MedicalCondition::new)
+                .collect(java.util.stream.Collectors.toSet());
+        this.tags.addAll(conditionSet);
         return this;
     }
 
