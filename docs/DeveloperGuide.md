@@ -313,21 +313,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. Doctor searches for a patient by name. 
-2. DoctorWho displays a list of matching patients. 
-3. Doctor identifies the correct patient's index. 
-4. Doctor requests to add an appointment for that index with a date, time, and duration. 
+2. DoctorWho displays a list of matching patients.
+3. Doctor identifies the correct patient's index.
+4. Doctor requests to add an appointment for that index with a date, time, and duration.
 5. DoctorWho adds the appointment and displays a success message.
 <br>Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty (_i.e._ no patients found). 
-  * 2a1. DoctorWho shows an empty list. 
-  * 2a2. Doctor uses the add command to create a new patient (Refer to Add Patient use case). 
+  * 2a1. DoctorWho shows an empty list.
+  * 2a2. Doctor uses the add command to create a new patient (Refer to Add Patient use case).
   <br>Use case resumes at step 4.
 
 * 4a. The requested time slot overlaps with an existing appointment. 
-  * 4a1. DoctorWho displays a warning message about the overlap. 
+  * 4a1. DoctorWho displays a warning message about the overlap.
   * 4a2. DoctorWho adds the appointment anyway (system allows flexible scheduling).
   <br>Use case ends.
 
@@ -340,8 +340,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. Doctor requests to list all patients. 
-2. DoctorWho shows the list of patients. 
-3. Doctor identifies the patient and uses the command to add a new allergy tag. 
+2. DoctorWho shows the list of patients.
+3. Doctor identifies the patient and uses the command to add a new allergy tag.
 4. DoctorWho updates the patient record and displays the new allergy in the detail panel.
 <br>Use case ends.
 

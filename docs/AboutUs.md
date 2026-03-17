@@ -55,4 +55,4 @@ You can reach us at the email `doctorwho[at]comp.nus.edu.sg`
 [[portfolio](team/s6r6k.md)]
 
 * Role: Developer
-* Responsibilities: Documentation 
+* Responsibilities: Documentation
