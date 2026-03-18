@@ -38,8 +38,8 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_ALLERGY_NUTS = "nuts";
+    public static final String VALID_ALLERGY_SEAFOOD = "seafood";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -58,8 +58,8 @@ public class CommandTestUtil {
     public static final String VALID_ALLERGY_DUST = "dust";
     public static final String VALID_ALLERGY_POLLEN = "pollen";
     public static final String VALID_MEDICALCONDITION_DIABETES = "diabetes";
-    public static final String ALLERGY_DESC_FRIEND = " " + PREFIX_ALLERGY + VALID_TAG_FRIEND;
-    public static final String ALLERGY_DESC_HUSBAND = " " + PREFIX_ALLERGY + VALID_TAG_HUSBAND;
+    public static final String ALLERGY_DESC_FRIEND = " " + PREFIX_ALLERGY + VALID_ALLERGY_SEAFOOD;
+    public static final String ALLERGY_DESC_HUSBAND = " " + PREFIX_ALLERGY + VALID_ALLERGY_NUTS;
     public static final String ALLERGY_DESC_DUST = " " + PREFIX_ALLERGY + VALID_ALLERGY_DUST;
     public static final String ALLERGY_DESC_POLLEN = " " + PREFIX_ALLERGY + VALID_ALLERGY_POLLEN;
     public static final String MEDICALCONDITION_DESC_DIABETES = " " + PREFIX_MEDICALCONDITION
@@ -96,10 +96,10 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withAllergies(VALID_TAG_FRIEND).build();
+                .withAllergies(VALID_ALLERGY_SEAFOOD).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withAllergies(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withAllergies(VALID_ALLERGY_NUTS, VALID_ALLERGY_SEAFOOD).build();
     }
 
     /**

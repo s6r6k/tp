@@ -19,11 +19,11 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_NUTS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_SEAFOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -55,13 +55,13 @@ public class AddCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         // whitespace only preamble
-        Patient expectedPatient = new PatientBuilder(BOB).withAllergies(VALID_TAG_FRIEND).build();
+        Patient expectedPatient = new PatientBuilder(BOB).withAllergies(VALID_ALLERGY_SEAFOOD).build();
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + ALLERGY_DESC_FRIEND, new AddCommand(expectedPatient));
 
         // multiple tags - all accepted
         Patient expectedPatientMultipleTags = new PatientBuilder(BOB)
-                .withAllergies(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withAllergies(VALID_ALLERGY_SEAFOOD, VALID_ALLERGY_NUTS)
                 .build();
         assertParseSuccess(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
@@ -70,7 +70,7 @@ public class AddCommandParserTest {
 
         // allergy and medical condition
         Patient expectedPatientWithMedical = new PatientBuilder(BOB)
-                .withAllergies(VALID_TAG_FRIEND, "Peanut")
+                .withAllergies(VALID_ALLERGY_SEAFOOD, "Peanut")
                 .withMedicalConditions("Asthma")
                 .build();
         assertParseSuccess(parser,
@@ -196,7 +196,7 @@ public class AddCommandParserTest {
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + INVALID_ALLERGY_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+                + INVALID_ALLERGY_DESC + VALID_ALLERGY_SEAFOOD, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC,

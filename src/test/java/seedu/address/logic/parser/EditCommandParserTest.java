@@ -21,14 +21,14 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_DUST;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_NUTS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_POLLEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_SEAFOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICALCONDITION_DIABETES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -121,7 +121,7 @@ public class EditCommandParserTest {
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withAllergies(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withAllergies(VALID_ALLERGY_NUTS, VALID_ALLERGY_SEAFOOD).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -168,7 +168,7 @@ public class EditCommandParserTest {
 
         // tags
         userInput = targetIndex.getOneBased() + ALLERGY_DESC_FRIEND;
-        descriptor = new EditPersonDescriptorBuilder().withAllergies(VALID_TAG_FRIEND).build();
+        descriptor = new EditPersonDescriptorBuilder().withAllergies(VALID_ALLERGY_SEAFOOD).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
