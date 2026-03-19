@@ -56,13 +56,11 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
 
         Appointment appointment;
 
-        // is this a good way to check for parse exceptions?
         try {
             appointment = new Appointment(startTimeStr, duration, note);
         } catch (IllegalArgumentException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddAppointmentCommand.MESSAGE_USAGE),
-                    e);
+                    AddAppointmentCommand.MESSAGE_USAGE), e);
         }
 
         return new AddAppointmentCommand(index, appointment);

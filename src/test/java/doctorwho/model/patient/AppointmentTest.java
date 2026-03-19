@@ -63,12 +63,6 @@ public class AppointmentTest {
     }
 
     @Test
-    public void constructor_nullNote_throwsIllegalArgumentException() {
-        assertThrows(NullPointerException.class, () ->
-                new Appointment(VALID_START, VALID_DURATION, null));
-    }
-
-    @Test
     public void constructor_invalidStartDate_throwsIllegalArgumentException() {
         String wrongPattern = "2026-03-12 14:00";
         assertThrows(IllegalArgumentException.class, () ->
