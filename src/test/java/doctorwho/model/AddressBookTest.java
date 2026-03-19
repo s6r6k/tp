@@ -1,7 +1,7 @@
-package doctorwho.model;
+package seedu.address.model;
 
 import static doctorwho.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static doctorwho.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static doctorwho.logic.commands.CommandTestUtil.VALID_ALLERGY_IBUPROFEN;
 import static doctorwho.testutil.Assert.assertThrows;
 import static doctorwho.testutil.TypicalPersons.ALICE;
 import static doctorwho.testutil.TypicalPersons.getTypicalAddressBook;
@@ -16,6 +16,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import doctorwho.model.AddressBook;
+import doctorwho.model.ReadOnlyAddressBook;
 import doctorwho.model.patient.Patient;
 import doctorwho.model.patient.exceptions.DuplicatePersonException;
 import doctorwho.testutil.PatientBuilder;
@@ -46,8 +48,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Patient editedAlice = new PatientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Patient editedAlice = new PatientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+            .withAllergies(VALID_ALLERGY_IBUPROFEN)
+            .build();
         List<Patient> newPatients = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPatients);
 
@@ -73,8 +76,9 @@ public class AddressBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
-        Patient editedAlice = new PatientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Patient editedAlice = new PatientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+            .withAllergies(VALID_ALLERGY_IBUPROFEN)
+            .build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
 

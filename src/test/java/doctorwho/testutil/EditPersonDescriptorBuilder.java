@@ -10,6 +10,8 @@ import doctorwho.model.patient.Email;
 import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Patient;
 import doctorwho.model.patient.Phone;
+import doctorwho.model.tag.Allergy;
+import doctorwho.model.tag.Condition;
 import doctorwho.model.tag.Tag;
 
 /**
@@ -36,7 +38,17 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(patient.getPhone());
         descriptor.setEmail(patient.getEmail());
         descriptor.setAddress(patient.getAddress());
-        descriptor.setTags(patient.getTags());
+
+        Set<Tag> existingTags = patient.getTags();
+        Set<Tag> allergies = existingTags.stream()
+            .filter(t -> t instanceof Allergy)
+            .collect(Collectors.toSet());
+        Set<Tag> conditions = existingTags.stream()
+            .filter(t -> t instanceof Condition)
+            .collect(Collectors.toSet());
+
+        descriptor.setAllergies(allergies);
+        descriptor.setconditions(conditions);
     }
 
     /**
@@ -72,12 +84,22 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code allergies} into a {@code Set<Allergy>} and sets it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+    public EditPersonDescriptorBuilder withAllergies(String... allergies) {
+        Set<Tag> allergySet = Stream.of(allergies).map(Allergy::new).collect(Collectors.toSet());
+        descriptor.setAllergies(allergySet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code conditions} into a {@code Set<Condition>} and sets it to the
+     * {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withconditions(String... conditions) {
+        Set<Tag> conditionset = Stream.of(conditions).map(Condition::new).collect(Collectors.toSet());
+        descriptor.setconditions(conditionset);
         return this;
     }
 

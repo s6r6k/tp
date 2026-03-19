@@ -1,7 +1,6 @@
 package doctorwho.model.patient;
 
 import static doctorwho.commons.util.AppUtil.checkArgument;
-import static doctorwho.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
@@ -70,10 +69,18 @@ public class Appointment {
 
     /**
      * Returns true if the note is valid.
-     * Since notes can be blank, this now returns true for any non-null string.
      */
     public static boolean isValidNote(String note) {
-        return note != null;
+        requireNonNull(note);
+        if (note.length() > 500) {
+            return false;
+        }
+        for (char c : note.toCharArray()) {
+            if (Character.isISOControl(c) && c != '\t' && c != '\n' && c != '\r') {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

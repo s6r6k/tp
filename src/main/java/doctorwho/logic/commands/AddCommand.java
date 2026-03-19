@@ -1,6 +1,11 @@
 package doctorwho.logic.commands;
 
-import static doctorwho.logic.parser.CliSyntax.*;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_ALLERGY;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_CONDITION;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_NAME;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_PHONE;
 import static java.util.Objects.requireNonNull;
 
 import doctorwho.commons.util.ToStringBuilder;

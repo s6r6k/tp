@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import doctorwho.commons.exceptions.IllegalValueException;
-import doctorwho.model.tag.Tag;
-import doctorwho.model.tag.Condition;
 import doctorwho.model.tag.Allergy;
+import doctorwho.model.tag.Condition;
+import doctorwho.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Tag}.

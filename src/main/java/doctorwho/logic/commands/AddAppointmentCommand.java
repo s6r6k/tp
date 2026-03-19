@@ -1,6 +1,5 @@
 package doctorwho.logic.commands;
 
-import static doctorwho.commons.util.CollectionUtil.requireAllNonNull;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DURATION;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_APPOINTMENT_NOTE;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_APPOINTMENT_STARTTIME;
@@ -23,6 +22,9 @@ import doctorwho.model.patient.Patient;
 import doctorwho.model.patient.Phone;
 import doctorwho.model.tag.Tag;
 
+/**
+ * Adds an appointment to an existing patient in the address book.
+ */
 public class AddAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "apt";
 

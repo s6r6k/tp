@@ -1,5 +1,6 @@
 package doctorwho.logic.parser;
 
+import static doctorwho.logic.commands.CommandTestUtil.VALID_ALLERGY_ASPIRIN;
 import static doctorwho.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static doctorwho.testutil.Assert.assertThrows;
 import static doctorwho.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -18,21 +19,22 @@ import doctorwho.model.patient.Address;
 import doctorwho.model.patient.Email;
 import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Phone;
-import doctorwho.model.tag.Tag;
+import doctorwho.model.tag.Allergy;
+import doctorwho.model.tag.Condition;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_ALLERGY = "#aspirin";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_ALLERGY_1 = VALID_ALLERGY_ASPIRIN;
+    private static final String VALID_CONDITION_2 = "diabetes";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -44,7 +46,7 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-                -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -149,48 +151,100 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTag_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseTag(null));
+    public void parseAllergy_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAllergy(null));
     }
 
     @Test
-    public void parseTag_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTag(INVALID_TAG));
+    public void parseAllergy_validValueWithoutWhitespace_returnsAllergy() throws Exception {
+        Allergy expected = new Allergy(VALID_ALLERGY_1);
+        assertEquals(expected, ParserUtil.parseAllergy(VALID_ALLERGY_1));
     }
 
     @Test
-    public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
+    public void parseAllergy_validValueWithWhitespace_returnsTrimmedAllergy() throws Exception {
+        String tagWithWhitespace = WHITESPACE + VALID_ALLERGY_1 + WHITESPACE;
+        Allergy expected = new Allergy(VALID_ALLERGY_1);
+        assertEquals(expected, ParserUtil.parseAllergy(tagWithWhitespace));
     }
 
     @Test
-    public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
+    public void parseAllergy_validTag_returnsAllergy() throws ParseException {
+        Allergy allergy = ParserUtil.parseAllergy(VALID_ALLERGY_ASPIRIN);
+        assertEquals("[Aspirin]", allergy.toString());
     }
 
     @Test
-    public void parseTags_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(null));
+    public void parseAllergy_invalidTag_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseAllergy("!!!"));
     }
 
     @Test
-    public void parseTags_collectionWithInvalidTags_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
+    public void parseAllergies_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAllergies(null));
     }
 
     @Test
-    public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
+    public void parseAllergies_collectionWithInvalidTags_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil
+            .parseAllergies(Arrays.asList(VALID_ALLERGY_1, INVALID_ALLERGY)));
     }
 
     @Test
-    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+    public void parseAllergies_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseAllergies(Collections.emptyList()).isEmpty());
+    }
 
-        assertEquals(expectedTagSet, actualTagSet);
+    @Test
+    public void parseCondition_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCondition(null));
+    }
+
+    @Test
+    public void parseCondition_validValueWithoutWhitespace_returnsCondition() throws Exception {
+        Condition expected = new Condition(VALID_CONDITION_2);
+        assertEquals(expected, ParserUtil.parseCondition(VALID_CONDITION_2));
+    }
+
+    @Test
+    public void parseCondition_validValueWithWhitespace_returnsTrimmedCondition() throws Exception {
+        String tagWithWhitespace = WHITESPACE + VALID_CONDITION_2 + WHITESPACE;
+        Condition expected = new Condition(VALID_CONDITION_2);
+        assertEquals(expected, ParserUtil.parseCondition(tagWithWhitespace));
+    }
+
+    @Test
+    public void parseconditions_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseconditions(null));
+    }
+
+    @Test
+    public void parseconditions_collectionWithValidTags_returnsconditionset() throws Exception {
+        Set<Condition> expected = new HashSet<>(Arrays.asList(
+            new Condition(VALID_CONDITION_2), new Condition("asthma")));
+        assertEquals(expected, ParserUtil.parseconditions(
+            Arrays.asList(VALID_CONDITION_2, "asthma")));
+    }
+
+    @Test
+    public void parseconditions_collectionWithInvalidTags_throwsParseException() {
+        assertThrows(ParseException.class, ()-> ParserUtil.parseconditions(
+            Arrays.asList(VALID_CONDITION_2, INVALID_ALLERGY)));
+    }
+
+    @Test
+    public void parseconditions_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseconditions(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseCondition_validTag_returnsCondition() throws ParseException {
+        Condition condition = ParserUtil.parseCondition("Asthma");
+        assertEquals("[Asthma]", condition.toString());
+    }
+
+    @Test
+    public void parseCondition_invalidTag_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCondition("!!!"));
     }
 }

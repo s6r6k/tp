@@ -13,9 +13,9 @@ import doctorwho.model.patient.Address;
 import doctorwho.model.patient.Email;
 import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Phone;
-import doctorwho.model.tag.Tag;
-import doctorwho.model.tag.Condition;
 import doctorwho.model.tag.Allergy;
+import doctorwho.model.tag.Condition;
+import doctorwho.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

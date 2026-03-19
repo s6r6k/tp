@@ -1,9 +1,11 @@
 package doctorwho.logic.commands;
 
-import doctorwho.model.tag.Condition;
-import doctorwho.model.tag.Allergy;
-
-import static doctorwho.logic.parser.CliSyntax.*;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_ALLERGY;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_CONDITION;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_NAME;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_PHONE;
 import static doctorwho.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static java.util.Objects.requireNonNull;
 
@@ -26,6 +28,8 @@ import doctorwho.model.patient.Email;
 import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Patient;
 import doctorwho.model.patient.Phone;
+import doctorwho.model.tag.Allergy;
+import doctorwho.model.tag.Condition;
 import doctorwho.model.tag.Tag;
 
 /**
@@ -103,7 +107,6 @@ public class EditCommand extends Command {
 
         Set<Tag> existingTags = patientToEdit.getTags();
 
-        //Keep the existing tags of each type unless that specific type is being replaced
         Set<Tag> existingAllergies = existingTags.stream()
             .filter(t -> t instanceof Allergy)
             .collect(Collectors.toSet());
@@ -128,7 +131,6 @@ public class EditCommand extends Command {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof EditCommand)) {
             return false;
         }
@@ -253,7 +255,6 @@ public class EditCommand extends Command {
                 return true;
             }
 
-            // instanceof handles nulls
             if (!(other instanceof EditPersonDescriptor)) {
                 return false;
             }

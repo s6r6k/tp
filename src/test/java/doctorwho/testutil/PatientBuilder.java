@@ -1,5 +1,6 @@
 package doctorwho.testutil;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,8 +10,9 @@ import doctorwho.model.patient.Email;
 import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Patient;
 import doctorwho.model.patient.Phone;
+import doctorwho.model.tag.Allergy;
+import doctorwho.model.tag.Condition;
 import doctorwho.model.tag.Tag;
-import doctorwho.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Patient objects.
@@ -65,15 +67,6 @@ public class PatientBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Patient} that we are building.
-     */
-
-    public PatientBuilder withTags(String... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
      * Sets the {@code Address} of the {@code Patient} that we are building.
      */
     public PatientBuilder withAddress(String address) {
@@ -102,6 +95,30 @@ public class PatientBuilder {
      */
     public PatientBuilder withAppointment(Appointment appointment) {
         this.appointment = appointment;
+        return this;
+    }
+
+    /**
+     * Parses the {@code allergies} into a {@code Set<Allergy>}
+     */
+    public PatientBuilder withAllergies(String... allergies) {
+        this.tags.removeIf(t -> t instanceof Allergy);
+        Set<Tag> allergySet = Arrays.stream(allergies)
+            .map(Allergy::new)
+            .collect(java.util.stream.Collectors.toSet());
+        this.tags.addAll(allergySet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code conditions} into a {@code Set<Condition>}
+     */
+    public PatientBuilder withconditions(String... conditions) {
+        this.tags.removeIf(t -> t instanceof Condition);
+        Set<Tag> conditionset = Arrays.stream(conditions)
+            .map(Condition::new)
+            .collect(java.util.stream.Collectors.toSet());
+        this.tags.addAll(conditionset);
         return this;
     }
 

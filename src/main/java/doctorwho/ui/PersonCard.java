@@ -1,10 +1,8 @@
 package doctorwho.ui;
 
-import java.util.Comparator;
+import doctorwho.model.patient.Patient;
 import doctorwho.model.tag.Allergy;
 import doctorwho.model.tag.Condition;
-
-import doctorwho.model.patient.Patient;
 import doctorwho.model.tag.Tag;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

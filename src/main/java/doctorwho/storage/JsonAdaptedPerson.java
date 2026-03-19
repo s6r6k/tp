@@ -124,7 +124,7 @@ class JsonAdaptedPerson {
         Appointment modelAppointment = null;
         if (appointmentStart != null && appointmentDuration != null && appointmentNote != null) {
             if (!Appointment.isValidDateTime(appointmentStart)) {
-                throw new IllegalValueException(Appointment.MESSAGE_CONSTRAINTS);
+                throw new IllegalValueException(Appointment.STARTTIME_CONSTRAINTS);
             }
             if (!Appointment.isValidDuration(appointmentDuration)) {
                 throw new IllegalValueException(Appointment.DURATION_CONSTRAINTS);

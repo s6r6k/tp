@@ -1,8 +1,6 @@
 package doctorwho.model.util;
 
-import java.util.Arrays;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import doctorwho.model.AddressBook;
 import doctorwho.model.ReadOnlyAddressBook;
@@ -12,7 +10,6 @@ import doctorwho.model.patient.Email;
 import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Patient;
 import doctorwho.model.patient.Phone;
-import doctorwho.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
