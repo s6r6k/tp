@@ -23,24 +23,21 @@ import doctorwho.model.patient.Patient;
 import doctorwho.model.patient.Phone;
 import doctorwho.model.tag.Tag;
 
-/**
- * Adds an appointment to an existing patient in the address book.
- */
 public class AddAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "apt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment to the patient identified "
-            + "by the index number used in the displayed patient list. "
-            + "Supply the start date and time, duration and an optional note. "
-            + "Existing appointment will be overwritten by the new appointment.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_APPOINTMENT_STARTTIME + "DATETIME (in the format: dd-MM-yyyy HH:mm) "
-            + PREFIX_APPOINTMENT_DURATION + "DURATION (in minutes) "
-            + "[" + PREFIX_APPOINTMENT_NOTE + "NOTE] "
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_APPOINTMENT_STARTTIME + "12-03-2026 14:00 "
-            + PREFIX_APPOINTMENT_DURATION + "30 "
-            + PREFIX_APPOINTMENT_NOTE + "Routine Checkup";
+        + "by the index number used in the displayed patient list. "
+        + "Supply the start date and time, duration and an optional note. "
+        + "Existing appointment will be overwritten by the new appointment.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + PREFIX_APPOINTMENT_STARTTIME + "DATETIME (in the format: dd-MM-yyyy HH:mm) "
+        + PREFIX_APPOINTMENT_DURATION + "DURATION (in minutes) "
+        + "[" + PREFIX_APPOINTMENT_NOTE + "NOTE] "
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_APPOINTMENT_STARTTIME + "12-03-2026 14:00 "
+        + PREFIX_APPOINTMENT_DURATION + "30 "
+        + PREFIX_APPOINTMENT_NOTE + "Routine Checkup";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Added appointment to: %1$s";
 
@@ -52,7 +49,9 @@ public class AddAppointmentCommand extends Command {
      * @param appointment appointment to add to the patient
      */
     public AddAppointmentCommand(Index index, Appointment appointment) {
-        requireAllNonNull(index, appointment);
+        requireNonNull(index);
+        requireNonNull(appointment);
+
         this.index = index;
         this.appointment = appointment;
     }
@@ -86,8 +85,9 @@ public class AddAppointmentCommand extends Command {
         Email email = patientToEdit.getEmail();
         Address address = patientToEdit.getAddress();
         Set<Tag> tags = patientToEdit.getTags();
+        Appointment appointment = appointmentToAdd;
 
-        return new Patient(name, phone, email, address, tags, appointmentToAdd);
+        return new Patient(name, phone, email, address, tags, appointment);
     }
 
     @Override
@@ -103,14 +103,14 @@ public class AddAppointmentCommand extends Command {
 
         AddAppointmentCommand otherAddAppointmentCommand = (AddAppointmentCommand) other;
         return index.equals(otherAddAppointmentCommand.index)
-                && appointment.equals(otherAddAppointmentCommand.appointment);
+            && appointment.equals(otherAddAppointmentCommand.appointment);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("index", index)
-                .add("appointment", appointment)
-                .toString();
+            .add("index", index)
+            .add("appointment", appointment)
+            .toString();
     }
 }

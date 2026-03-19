@@ -1,8 +1,11 @@
 package doctorwho.ui;
 
 import java.util.Comparator;
+import doctorwho.model.tag.Allergy;
+import doctorwho.model.tag.Condition;
 
 import doctorwho.model.patient.Patient;
+import doctorwho.model.tag.Tag;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -10,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 /**
- * An UI component that displays information of a {@code Patient}.
+ * A UI component that displays information of a {@code Person}.
  */
 public class PersonCard extends UiPart<Region> {
 
@@ -44,7 +47,7 @@ public class PersonCard extends UiPart<Region> {
     private Label appointment;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Patient} and index to display.
+     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
     public PersonCard(Patient patient, int displayedIndex) {
         super(FXML);
@@ -54,17 +57,46 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(patient.getPhone().value);
         address.setText(patient.getAddress().value);
         email.setText(patient.getEmail().value);
-        patient.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        patient.getAppointment().ifPresentOrElse(
-                appt -> {
-                    appointment.setText(appt.toString());
-                    appointment.setVisible(true);
-                    appointment.setManaged(true);
-                }, () -> {
-                    appointment.setText("No appointment scheduled");
+        for (Tag tag : patient.getTags().stream()
+            .sorted((t1, t2) -> {
+                int p1 = getPriority(t1);
+                int p2 = getPriority(t2);
+                if (p1 != p2) {
+                    return Integer.compare(p1, p2);
                 }
+                return t1.tagName.compareTo(t2.tagName);
+            }).toList()) {
+
+            Label tagLabel = new Label(tag.tagName);
+            tagLabel.getStyleClass().add("tag");
+
+            if (tag instanceof Allergy) {
+                tagLabel.getStyleClass().add("allergy-tag");
+            } else if (tag instanceof Condition) {
+                tagLabel.getStyleClass().add("condition-tag");
+            } else {
+                tagLabel.getStyleClass().add("general-tag");
+            }
+
+            tags.getChildren().add(tagLabel);
+        }
+        patient.getAppointment().ifPresentOrElse(
+            appt -> {
+                appointment.setText(appt.toString());
+                appointment.setVisible(true);
+                appointment.setManaged(true);
+            }, () -> {
+                appointment.setText("No appointment scheduled");
+            }
         );
+    }
+    private int getPriority(Tag tag) {
+        if (tag instanceof Allergy) {
+            return 0;
+        }
+        if (tag instanceof Condition) {
+            return 1;
+        }
+        return 2;
     }
 }

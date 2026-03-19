@@ -1,12 +1,9 @@
 package doctorwho.logic.parser;
 
 import static doctorwho.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static doctorwho.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static doctorwho.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static doctorwho.logic.parser.CliSyntax.PREFIX_NAME;
-import static doctorwho.logic.parser.CliSyntax.PREFIX_PHONE;
-import static doctorwho.logic.parser.CliSyntax.PREFIX_TAG;
+import static doctorwho.logic.parser.CliSyntax.*;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -27,15 +24,15 @@ public class AddCommandParser implements Parser<AddCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
-     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                PREFIX_ALLERGY, PREFIX_CONDITION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
-                || !argMultimap.getPreamble().isEmpty()) {
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
@@ -44,9 +41,17 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Tag> tags = new HashSet<>();
 
-        Patient patient = new Patient(name, phone, email, address, tagList);
+        for (String allergy : argMultimap.getAllValues(PREFIX_ALLERGY)) {
+            tags.add(ParserUtil.parseAllergy(allergy));
+        }
+
+        for (String condition : argMultimap.getAllValues(PREFIX_CONDITION)) {
+            tags.add(ParserUtil.parseCondition(condition));
+        }
+
+        Patient patient = new Patient(name, phone, email, address, tags);
 
         return new AddCommand(patient);
     }

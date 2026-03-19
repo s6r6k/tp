@@ -14,6 +14,8 @@ import doctorwho.model.patient.Email;
 import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Phone;
 import doctorwho.model.tag.Tag;
+import doctorwho.model.tag.Condition;
+import doctorwho.model.tag.Allergy;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -22,7 +24,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_POSITIVE_INTEGER = "Number is not a non-zero unsigned integer. "
-            + "Ensure the number is more than 0 and less than or equal to " + Integer.MAX_VALUE;
+        + "Ensure the number is more than 0 and less than or equal to " + Integer.MAX_VALUE;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -99,28 +101,57 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String allergy} into an {@code Allergy}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code allergy} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Tag(trimmedTag);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+    public static Set<Tag> parseAllergies(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+            tagSet.add(parseAllergy(tagName));
+        }
+        return tagSet;
+    }
+
+    /**
+     * Parses a {@code String allergy} into an {@code Allergy}.
+     * @throws ParseException if the given {@code allergy} is invalid.
+     */
+    public static Allergy parseAllergy(String allergy) throws ParseException {
+        requireNonNull(allergy);
+        String trimmedAllergy = allergy.trim();
+        if (!Tag.isValidTagName(trimmedAllergy)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new Allergy(trimmedAllergy);
+    }
+
+    /**
+     * Parses a {@code String condition} into a {@code Condition}.
+     * @throws ParseException if the given {@code condition} is invalid.
+     */
+    public static Condition parseCondition(String condition) throws ParseException {
+        requireNonNull(condition);
+        String trimmedCondition = condition.trim();
+        if (!Tag.isValidTagName(trimmedCondition)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new Condition(trimmedCondition);
+    }
+
+    /**
+     * Parses a {@code String condition} into a {@code Condition}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code condition} is invalid.
+     */
+    public static Set<Tag> parseconditions(Collection<String> tags) throws ParseException {
+        requireNonNull(tags);
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(parseCondition(tagName));
         }
         return tagSet;
     }

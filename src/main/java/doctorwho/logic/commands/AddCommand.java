@@ -1,10 +1,6 @@
 package doctorwho.logic.commands;
 
-import static doctorwho.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static doctorwho.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static doctorwho.logic.parser.CliSyntax.PREFIX_NAME;
-import static doctorwho.logic.parser.CliSyntax.PREFIX_PHONE;
-import static doctorwho.logic.parser.CliSyntax.PREFIX_TAG;
+import static doctorwho.logic.parser.CliSyntax.*;
 import static java.util.Objects.requireNonNull;
 
 import doctorwho.commons.util.ToStringBuilder;
@@ -21,19 +17,20 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the address book. "
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+        + "Parameters: "
+        + PREFIX_NAME + "NAME "
+        + PREFIX_PHONE + "PHONE "
+        + PREFIX_EMAIL + "EMAIL "
+        + PREFIX_ADDRESS + "ADDRESS "
+        + "[" + PREFIX_ALLERGY + "ALLERGY... "
+        + "[" + PREFIX_CONDITION + "Condition]...\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_NAME + "John Doe "
+        + PREFIX_PHONE + "98765432 "
+        + PREFIX_EMAIL + "johnd@example.com "
+        + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+        + PREFIX_ALLERGY + "ibuprofen "
+        + PREFIX_CONDITION + "cold";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This patient already exists in the address book";
@@ -78,7 +75,7 @@ public class AddCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("toAdd", toAdd)
-                .toString();
+            .add("toAdd", toAdd)
+            .toString();
     }
 }

@@ -7,12 +7,15 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import doctorwho.commons.util.ToStringBuilder;
+import doctorwho.model.tag.Allergy;
+import doctorwho.model.tag.Condition;
 import doctorwho.model.tag.Tag;
 
 /**
- * Represents a Patient in the address book.
+ * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Patient {
@@ -60,21 +63,28 @@ public class Patient {
         return address;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
 
+    public Set<Tag> getAllergies() {
+        return tags.stream()
+            .filter(t -> t instanceof Allergy)
+            .collect(Collectors.toSet());
+    }
+
+    public Set<Tag> getConditions() {
+        return tags.stream()
+            .filter(t -> t instanceof Condition)
+            .collect(Collectors.toSet());
+    }
     public Optional<Appointment> getAppointment() {
         return Optional.ofNullable(appointment);
     }
 
     /**
-     * Returns true if both patients have the same name.
-     * This defines a weaker notion of equality between two patients.
+     * Returns true if both persons have the same name.
+     * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Patient otherPatient) {
         if (otherPatient == this) {
@@ -82,12 +92,12 @@ public class Patient {
         }
 
         return otherPatient != null
-                && otherPatient.getName().equals(getName());
+            && otherPatient.getName().equals(getName());
     }
 
     /**
-     * Returns true if both patients have the same identity and data fields.
-     * This defines a stronger notion of equality between two patients.
+     * Returns true if both persons have the same identity and data fields.
+     * This defines a stronger notion of equality between two persons.
      */
     @Override
     public boolean equals(Object other) {
@@ -102,10 +112,10 @@ public class Patient {
 
         Patient otherPatient = (Patient) other;
         return name.equals(otherPatient.name)
-                && phone.equals(otherPatient.phone)
-                && email.equals(otherPatient.email)
-                && address.equals(otherPatient.address)
-                && tags.equals(otherPatient.tags);
+            && phone.equals(otherPatient.phone)
+            && email.equals(otherPatient.email)
+            && address.equals(otherPatient.address)
+            && tags.equals(otherPatient.tags);
     }
 
     @Override
@@ -117,12 +127,12 @@ public class Patient {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
-                .add("address", address)
-                .add("tags", tags)
-                .toString();
+            .add("name", name)
+            .add("phone", phone)
+            .add("email", email)
+            .add("address", address)
+            .add("tags", tags)
+            .toString();
     }
 
 }
