@@ -1,5 +1,6 @@
 package doctorwho.logic.commands;
 
+import static doctorwho.commons.util.CollectionUtil.requireAllNonNull;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DURATION;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_APPOINTMENT_NOTE;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_APPOINTMENT_STARTTIME;
@@ -51,9 +52,7 @@ public class AddAppointmentCommand extends Command {
      * @param appointment appointment to add to the patient
      */
     public AddAppointmentCommand(Index index, Appointment appointment) {
-        requireNonNull(index);
-        requireNonNull(appointment);
-
+        requireAllNonNull(index, appointment);
         this.index = index;
         this.appointment = appointment;
     }
@@ -87,9 +86,8 @@ public class AddAppointmentCommand extends Command {
         Email email = patientToEdit.getEmail();
         Address address = patientToEdit.getAddress();
         Set<Tag> tags = patientToEdit.getTags();
-        Appointment appointment = appointmentToAdd;
 
-        return new Patient(name, phone, email, address, tags, appointment);
+        return new Patient(name, phone, email, address, tags, appointmentToAdd);
     }
 
     @Override

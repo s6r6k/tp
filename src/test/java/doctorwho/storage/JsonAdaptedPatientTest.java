@@ -122,7 +122,7 @@ public class JsonAdaptedPatientTest {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                         VALID_TAGS, INVALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
-        String expectedMessage = Appointment.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Appointment.STARTTIME_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

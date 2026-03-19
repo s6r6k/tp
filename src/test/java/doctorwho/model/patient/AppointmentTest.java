@@ -63,12 +63,6 @@ public class AppointmentTest {
     }
 
     @Test
-    public void constructor_nullNote_throwsIllegalArgumentException() {
-        assertThrows(NullPointerException.class, () ->
-                new Appointment(VALID_START, VALID_DURATION, null));
-    }
-
-    @Test
     public void constructor_invalidStartDate_throwsIllegalArgumentException() {
         String wrongPattern = "2026-03-12 14:00";
         assertThrows(IllegalArgumentException.class, () ->
@@ -106,6 +100,40 @@ public class AppointmentTest {
 
         // Does not overlap: Different day
         assertFalse(appt.isOverlapping(new Appointment("13-03-2026 14:00", 60, "Tomorrow")));
+    }
+
+    @Test
+    public void isValidNote_nullNote_throwsNullPointerException() {
+        // null note
+        assertThrows(NullPointerException.class, () -> Appointment.isValidNote(null));
+    }
+
+    @Test
+    public void isValidNote_invalidNotes_returnsFalse() {
+        // length strictly greater than 500 characters
+        assertFalse(Appointment.isValidNote("a".repeat(501)));
+
+        // contains illegal invisible control characters (e.g., form feed \f)
+        assertFalse(Appointment.isValidNote("Patient \f record"));
+    }
+
+    @Test
+    public void isValidNote_validNotes_returnsTrue() {
+        // blank/empty notes
+        assertTrue(Appointment.isValidNote("")); // empty string
+        assertTrue(Appointment.isValidNote("   ")); // spaces only
+
+        // standard notes
+        assertTrue(Appointment.isValidNote("Patient is recovering well."));
+
+        // notes with symbols and command-like prefixes
+        assertTrue(Appointment.isValidNote("Temp: 38.5°C, BP: 120/80. Check d/c status."));
+
+        // notes with HTML-like tags (ensuring no aggressive escaping happens here)
+        assertTrue(Appointment.isValidNote("Patient needs a <break>"));
+
+        // boundary condition: exactly maximum allowed length
+        assertTrue(Appointment.isValidNote("a".repeat(500)));
     }
 
     @Test
