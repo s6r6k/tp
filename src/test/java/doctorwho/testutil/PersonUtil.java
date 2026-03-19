@@ -14,19 +14,19 @@ import doctorwho.model.patient.Patient;
 import doctorwho.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for Patient.
  */
 public class PersonUtil {
 
     /**
-     * Returns an add command string for adding the {@code patient}.
+     * Returns an add command string for adding the {@code Patient}.
      */
     public static String getAddCommand(Patient patient) {
         return AddCommand.COMMAND_WORD + " " + getPersonDetails(patient);
     }
 
     /**
-     * Returns the part of command string for the given {@code patient}'s details.
+     * Returns the part of command string for the given {@code Patient}'s details.
      */
     public static String getPersonDetails(Patient patient) {
         StringBuilder sb = new StringBuilder();
