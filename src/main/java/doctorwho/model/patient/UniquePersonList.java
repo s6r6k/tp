@@ -6,8 +6,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.Iterator;
 import java.util.List;
 
-import doctorwho.model.patient.exceptions.DuplicatePersonException;
-import doctorwho.model.patient.exceptions.PersonNotFoundException;
+import doctorwho.model.patient.exceptions.DuplicatePatientException;
+import doctorwho.model.patient.exceptions.PatientNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -44,7 +44,7 @@ public class UniquePersonList implements Iterable<Patient> {
     public void add(Patient toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicatePatientException();
         }
         internalList.add(toAdd);
     }
@@ -59,11 +59,11 @@ public class UniquePersonList implements Iterable<Patient> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new PatientNotFoundException();
         }
 
         if (!target.isSamePatient(editedPatient) && contains(editedPatient)) {
-            throw new DuplicatePersonException();
+            throw new DuplicatePatientException();
         }
 
         internalList.set(index, editedPatient);
@@ -76,7 +76,7 @@ public class UniquePersonList implements Iterable<Patient> {
     public void remove(Patient toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new PatientNotFoundException();
         }
     }
 
@@ -92,7 +92,7 @@ public class UniquePersonList implements Iterable<Patient> {
     public void setPersons(List<Patient> patients) {
         requireAllNonNull(patients);
         if (!personsAreUnique(patients)) {
-            throw new DuplicatePersonException();
+            throw new DuplicatePatientException();
         }
 
         internalList.setAll(patients);

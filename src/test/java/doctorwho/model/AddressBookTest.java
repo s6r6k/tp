@@ -17,7 +17,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import doctorwho.model.patient.Patient;
-import doctorwho.model.patient.exceptions.DuplicatePersonException;
+import doctorwho.model.patient.exceptions.DuplicatePatientException;
 import doctorwho.testutil.PatientBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,7 +51,7 @@ public class AddressBookTest {
         List<Patient> newPatients = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPatients);
 
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicatePatientException.class, () -> addressBook.resetData(newData));
     }
 
     @Test
