@@ -234,7 +234,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + CONDITION_DESC_DIABETES;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
-                .withconditions(VALID_CONDITION_DIABETES).build();
+                .withConditions(VALID_CONDITION_DIABETES).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -278,7 +278,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_CONDITION;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withconditions().build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withConditions().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -290,7 +290,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + CONDITION_DESC_DIABETES + CONDITION_DESC_HYPERTENSION;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
-                .withconditions(VALID_CONDITION_DIABETES, VALID_CONDITION_HYPERTENSION).build();
+                .withConditions(VALID_CONDITION_DIABETES, VALID_CONDITION_HYPERTENSION).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -303,7 +303,7 @@ public class EditCommandParserTest {
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
                 .withAllergies(VALID_ALLERGY_ASPIRIN)
-                .withconditions(VALID_CONDITION_DIABETES).build();
+                .withConditions(VALID_CONDITION_DIABETES).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

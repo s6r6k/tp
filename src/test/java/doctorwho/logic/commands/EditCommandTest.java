@@ -151,7 +151,7 @@ public class EditCommandTest {
     public void execute_editAllergyOnly_keepsOtherTags() {
         Patient patientToEdit = new PatientBuilder()
                 .withAllergies(VALID_ALLERGY_ASPIRIN, "penicillin")
-                .withconditions("diabetes")
+                .withConditions("diabetes")
                 .build();
         model.addPerson(patientToEdit);
         Index lastIndex = Index.fromOneBased(model.getFilteredPersonList().size());
@@ -163,7 +163,7 @@ public class EditCommandTest {
         // only allergies change, conditions stay
         Patient expectedPatient = new PatientBuilder()
                 .withAllergies("sulfonamide")
-                .withconditions("diabetes")
+                .withConditions("diabetes")
                 .build();
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
                 Messages.format(expectedPatient));
@@ -177,17 +177,17 @@ public class EditCommandTest {
     @Test
     public void execute_editConditionOnly_keepsOtherTags() {
         Patient patientToEdit = new PatientBuilder().withAllergies("ibuprofen", VALID_ALLERGY_ASPIRIN)
-                .withconditions("diabetes")
+                .withConditions("diabetes")
                 .build();
         model.addPerson(patientToEdit);
         Index lastIndex = Index.fromOneBased(model.getFilteredPersonList().size());
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
-                .withconditions("asthma").build();
+                .withConditions("asthma").build();
         EditCommand editCommand = new EditCommand(lastIndex, descriptor);
 
         Patient expectedPatient = new PatientBuilder().withAllergies("ibuprofen", VALID_ALLERGY_ASPIRIN)
-                .withconditions("asthma")
+                .withConditions("asthma")
                 .build();
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
                 Messages.format(expectedPatient));
@@ -202,18 +202,18 @@ public class EditCommandTest {
     public void execute_editMultipleconditions_success() {
         Patient patientToEdit = new PatientBuilder()
                 .withAllergies(VALID_ALLERGY_ASPIRIN)
-                .withconditions("diabetes", "hypertension")
+                .withConditions("diabetes", "hypertension")
                 .build();
         model.addPerson(patientToEdit);
         Index lastIndex = Index.fromOneBased(model.getFilteredPersonList().size());
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
-                .withconditions("asthma", "hypertension").build();
+                .withConditions("asthma", "hypertension").build();
         EditCommand editCommand = new EditCommand(lastIndex, descriptor);
 
         Patient expectedPatient = new PatientBuilder()
                 .withAllergies(VALID_ALLERGY_ASPIRIN)
-                .withconditions("asthma", "hypertension")
+                .withConditions("asthma", "hypertension")
                 .build();
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
                 Messages.format(expectedPatient));
@@ -228,19 +228,19 @@ public class EditCommandTest {
     public void execute_editAllergyAndCondition_bothChange() {
         Patient patientToEdit = new PatientBuilder()
                 .withAllergies(VALID_ALLERGY_ASPIRIN)
-                .withconditions("diabetes")
+                .withConditions("diabetes")
                 .build();
         model.addPerson(patientToEdit);
         Index lastIndex = Index.fromOneBased(model.getFilteredPersonList().size());
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
                 .withAllergies("penicillin")
-                .withconditions("asthma").build();
+                .withConditions("asthma").build();
         EditCommand editCommand = new EditCommand(lastIndex, descriptor);
 
         Patient expectedPatient = new PatientBuilder()
                 .withAllergies("penicillin")
-                .withconditions("asthma")
+                .withConditions("asthma")
                 .build();
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
                 Messages.format(expectedPatient));

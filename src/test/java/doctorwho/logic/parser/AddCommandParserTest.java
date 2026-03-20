@@ -71,7 +71,7 @@ public class AddCommandParserTest {
         // allergy and condition
         Patient expectedPatientWithCondition = new PatientBuilder(BOB)
                 .withAllergies(VALID_ALLERGY_IBUPROFEN, VALID_ALLERGY_PENICILLIN)
-                .withconditions(VALID_CONDITION_ASTHMA)
+                .withConditions(VALID_CONDITION_ASTHMA)
                 .build();
         assertParseSuccess(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB

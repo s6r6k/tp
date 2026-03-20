@@ -113,7 +113,7 @@ public class PatientBuilder {
     /**
      * Parses the {@code conditions} into a {@code Set<Condition>}
      */
-    public PatientBuilder withconditions(String... conditions) {
+    public PatientBuilder withConditions(String... conditions) {
         this.tags.removeIf(t -> t instanceof Condition);
         Set<Tag> conditionset = Arrays.stream(conditions)
                 .map(Condition::new)

@@ -97,7 +97,7 @@ public class EditPersonDescriptorBuilder {
      * Parses the {@code conditions} into a {@code Set<Condition>} and sets it to the
      * {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withconditions(String... conditions) {
+    public EditPersonDescriptorBuilder withConditions(String... conditions) {
         Set<Tag> conditionset = Stream.of(conditions).map(Condition::new).collect(Collectors.toSet());
         descriptor.setconditions(conditionset);
         return this;
