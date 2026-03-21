@@ -101,59 +101,39 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String allergy} into an {@code Allergy}.
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} of allergies.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code allergy} is invalid.
+     * @throws ParseException if any given allergy is invalid.
      */
     public static Set<Tag> parseAllergies(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
-            tagSet.add(parseAllergy(tagName));
+            String trimmedAllergy = tagName.trim();
+            if (!Tag.isValidTagName(trimmedAllergy)) {
+                throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+            }
+            tagSet.add(new Allergy(trimmedAllergy));
         }
         return tagSet;
     }
 
     /**
-     * Parses a {@code String allergy} into an {@code Allergy}.
-     *
-     * @throws ParseException if the given {@code allergy} is invalid.
-     */
-    public static Allergy parseAllergy(String allergy) throws ParseException {
-        requireNonNull(allergy);
-        String trimmedAllergy = allergy.trim();
-        if (!Tag.isValidTagName(trimmedAllergy)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Allergy(trimmedAllergy);
-    }
-
-    /**
-     * Parses a {@code String condition} into a {@code Condition}.
-     *
-     * @throws ParseException if the given {@code condition} is invalid.
-     */
-    public static Condition parseCondition(String condition) throws ParseException {
-        requireNonNull(condition);
-        String trimmedCondition = condition.trim();
-        if (!Tag.isValidTagName(trimmedCondition)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Condition(trimmedCondition);
-    }
-
-    /**
-     * Parses a {@code String condition} into a {@code Condition}.
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} of conditions.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code condition} is invalid.
+     * @throws ParseException if any given condition is invalid.
      */
-    public static Set<Tag> parseconditions(Collection<String> tags) throws ParseException {
+    public static Set<Tag> parseConditions(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
-            tagSet.add(parseCondition(tagName));
+            String trimmedCondition = tagName.trim();
+            if (!Tag.isValidTagName(trimmedCondition)) {
+                throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+            }
+            tagSet.add(new Condition(trimmedCondition));
         }
         return tagSet;
     }

@@ -216,26 +216,26 @@ public class ParserUtilTest {
 
     @Test
     public void parseconditions_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseconditions(null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseConditions(null));
     }
 
     @Test
     public void parseconditions_collectionWithValidTags_returnsconditionset() throws Exception {
         Set<Condition> expected = new HashSet<>(Arrays.asList(
                 new Condition(VALID_CONDITION_2), new Condition("asthma")));
-        assertEquals(expected, ParserUtil.parseconditions(
+        assertEquals(expected, ParserUtil.parseConditions(
                 Arrays.asList(VALID_CONDITION_2, "asthma")));
     }
 
     @Test
     public void parseconditions_collectionWithInvalidTags_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseconditions(
+        assertThrows(ParseException.class, () -> ParserUtil.parseConditions(
                 Arrays.asList(VALID_CONDITION_2, INVALID_ALLERGY)));
     }
 
     @Test
     public void parseconditions_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parseconditions(Collections.emptyList()).isEmpty());
+        assertTrue(ParserUtil.parseConditions(Collections.emptyList()).isEmpty());
     }
 
     @Test
