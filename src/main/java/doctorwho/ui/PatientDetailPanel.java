@@ -35,10 +35,6 @@ public class PatientDetailPanel extends UiPart<Region> {
     @FXML
     private FlowPane allergies;
     @FXML
-    private VBox appointmentListContainer;
-    @FXML
-    private Label noAppointmentsPlaceholder;
-    @FXML
     private Label appointment;
 
     /**
@@ -88,6 +84,7 @@ public class PatientDetailPanel extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> {
                     Label tagLabel = new Label(tag.tagName);
+                    tagLabel.getStyleClass().add("tag");
                     tagLabel.getStyleClass().add("condition-tag");
                     conditions.getChildren().add(tagLabel);
                 });
@@ -99,6 +96,7 @@ public class PatientDetailPanel extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> {
                     Label tagLabel = new Label(tag.tagName);
+                    tagLabel.getStyleClass().add("tag");
                     tagLabel.getStyleClass().add("allergy-tag");
                     allergies.getChildren().add(tagLabel);
                 });

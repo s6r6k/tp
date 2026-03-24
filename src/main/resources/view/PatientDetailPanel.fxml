@@ -56,15 +56,15 @@
                         <Label fx:id="address" text="\$address" wrapText="true" />
                     </HBox>
 
-                    <HBox spacing="10" alignment="TOP_LEFT" styleClass="cell_small_label_container">
+                    <VBox spacing="5" alignment="TOP_LEFT" styleClass="cell_small_label_container">
                         <Label text="Medical Conditions:" styleClass="label-bright"/>
                         <FlowPane fx:id="conditions" hgap="5" vgap="5" />
-                    </HBox>
+                    </VBox>
 
-                    <HBox spacing="10" alignment="TOP_LEFT" styleClass="cell_small_label_container">
+                    <VBox spacing="5" alignment="TOP_LEFT" styleClass="cell_small_label_container">
                         <Label text="Allergies:" styleClass="label-bright"/>
                         <FlowPane fx:id="allergies" hgap="5" vgap="5" />
-                    </HBox>
+                    </VBox>
                 </VBox>
 
                 <VBox styleClass="detail-card-section" spacing="10">
