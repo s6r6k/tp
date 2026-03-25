@@ -13,6 +13,7 @@ import doctorwho.commons.core.LogsCenter;
 import doctorwho.model.patient.Patient;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -23,6 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Patient> filteredPatients;
+    private final SortedList<Patient> sortedPatients;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +37,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPatients = new FilteredList<>(this.addressBook.getPatientList());
+        sortedPatients = new SortedList<>(filteredPatients);
     }
 
     public ModelManager() {
@@ -120,18 +123,20 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Patient> getFilteredPatientList() {
-        return filteredPatients;
+        return sortedPatients;
     }
 
     @Override
     public void updateFilteredPatientList(Predicate<Patient> predicate) {
         requireNonNull(predicate);
         filteredPatients.setPredicate(predicate);
+        sortedPatients.setComparator(null);
     }
 
     @Override
     public void updatePatientListComparator(Comparator<Patient> comparator) {
         requireNonNull(comparator);
+        sortedPatients.setComparator(comparator);
     }
 
     @Override
@@ -148,7 +153,8 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPatients.equals(otherModelManager.filteredPatients);
+            && filteredPatients.equals(otherModelManager.filteredPatients)
+            && sortedPatients.equals(otherModelManager.sortedPatients);
     }
 
 }

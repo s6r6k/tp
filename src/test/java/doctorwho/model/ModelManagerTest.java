@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import doctorwho.commons.core.GuiSettings;
 import doctorwho.model.patient.NameContainsKeywordsPredicate;
+import doctorwho.model.patient.Patient;
 import doctorwho.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -102,10 +103,31 @@ public class ModelManagerTest {
     @Test
     public void updatePatientListComparator_validComparator_noException() {
         modelManager.addPatient(ALICE);
-        modelManager.updatePatientListComparator(Comparator.comparing(patient -> patient.getName().fullName));
+        modelManager.addPatient(BENSON);
+        Comparator<Patient> reverseNameComparator =
+            Comparator.comparing((Patient patient) -> patient.getName().fullName)
+                .reversed();
 
-        assertEquals(1, modelManager.getFilteredPatientList().size());
+        modelManager.updatePatientListComparator(reverseNameComparator);
+
+        assertEquals(2, modelManager.getFilteredPatientList().size());
+        assertEquals(BENSON, modelManager.getFilteredPatientList().get(0));
+        assertEquals(ALICE, modelManager.getFilteredPatientList().get(1));
+    }
+
+    @Test
+    public void updateFilteredPatientList_resetsComparatorToDefaultOrder() {
+        modelManager.addPatient(ALICE);
+        modelManager.addPatient(BENSON);
+        Comparator<Patient> reverseNameComparator =
+            Comparator.comparing((Patient patient) -> patient.getName().fullName)
+                .reversed();
+        modelManager.updatePatientListComparator(reverseNameComparator);
+
+        modelManager.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
+
         assertEquals(ALICE, modelManager.getFilteredPatientList().get(0));
+        assertEquals(BENSON, modelManager.getFilteredPatientList().get(1));
     }
 
     @Test
