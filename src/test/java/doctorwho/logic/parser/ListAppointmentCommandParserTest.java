@@ -29,7 +29,12 @@ public class ListAppointmentCommandParserTest {
 
     @Test
     public void parse_invalidDate_throwsParseException() {
-        assertParseFailure(parser, " dt/2026-03-12", ParserUtil.MESSAGE_INVALID_DATE);
+        assertParseFailure(parser, " dt/2026-03-12", ParserUtil.MESSAGE_INVALID_DATE_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidCalendarDate_throwsParseException() {
+        assertParseFailure(parser, " dt/29-02-2026", ParserUtil.MESSAGE_INVALID_DATE);
     }
 
     @Test

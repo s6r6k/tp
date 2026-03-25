@@ -2,6 +2,7 @@ package doctorwho.logic.parser;
 
 import static doctorwho.logic.commands.CommandTestUtil.VALID_ALLERGY_ASPIRIN;
 import static doctorwho.logic.parser.ParserUtil.MESSAGE_INVALID_DATE;
+import static doctorwho.logic.parser.ParserUtil.MESSAGE_INVALID_DATE_FORMAT;
 import static doctorwho.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static doctorwho.testutil.Assert.assertThrows;
 import static doctorwho.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
@@ -284,7 +285,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseAppointmentDate_invalidFormat_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_DATE, () ->
+        assertThrows(ParseException.class, MESSAGE_INVALID_DATE_FORMAT, () ->
             ParserUtil.parseAppointmentDate(INVALID_APPOINTMENT_DATE));
     }
 
