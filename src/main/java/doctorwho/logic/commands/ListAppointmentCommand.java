@@ -1,5 +1,6 @@
 package doctorwho.logic.commands;
 
+import static doctorwho.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DATE;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
@@ -22,8 +23,8 @@ public class ListAppointmentCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Lists appointments in ascending date-time order.\n"
-            + "Parameters: [dt/DATE] (DATE in dd-MM-yyyy format)\n"
-            + "Example: " + COMMAND_WORD + " dt/12-03-2026";
+            + "Parameters: [" + PREFIX_APPOINTMENT_DATE + "DATE] (DATE in dd-MM-yyyy format)\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_APPOINTMENT_DATE + "12-03-2026";
 
     public static final String MESSAGE_SUCCESS = "%1$d appointment(s) listed.";
 
@@ -54,7 +55,7 @@ public class ListAppointmentCommand extends Command {
 
         Predicate<Patient> appointmentPredicate = createAppointmentPredicate();
         model.updateFilteredPatientList(appointmentPredicate);
-        model.updatePatientListComparator(Comparator.comparing(ListAppointmentCommand::getAppointmentStartTime));
+        model.setPatientListComparator(Comparator.comparing(ListAppointmentCommand::getAppointmentStartTime));
 
         int listedCount = model.getFilteredPatientList().size();
         return new CommandResult(String.format(MESSAGE_SUCCESS, listedCount));

@@ -38,7 +38,7 @@ public class AddCommand extends Command {
             + PREFIX_CONDITION + "diabetes";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in the address book.";
 
     private final Patient toAdd;
 

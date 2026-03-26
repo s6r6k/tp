@@ -97,7 +97,7 @@ public class ModelManagerTest {
 
     @Test
     public void updatePatientListComparator_nullComparator_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.updatePatientListComparator(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setPatientListComparator(null));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class ModelManagerTest {
             Comparator.comparing((Patient patient) -> patient.getName().fullName)
                 .reversed();
 
-        modelManager.updatePatientListComparator(reverseNameComparator);
+        modelManager.setPatientListComparator(reverseNameComparator);
 
         assertEquals(2, modelManager.getFilteredPatientList().size());
         assertEquals(BENSON, modelManager.getFilteredPatientList().get(0));
@@ -122,7 +122,7 @@ public class ModelManagerTest {
         Comparator<Patient> reverseNameComparator =
             Comparator.comparing((Patient patient) -> patient.getName().fullName)
                 .reversed();
-        modelManager.updatePatientListComparator(reverseNameComparator);
+        modelManager.setPatientListComparator(reverseNameComparator);
 
         modelManager.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
 

@@ -235,7 +235,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updatePatientListComparator(Comparator<Patient> comparator) {
+        public void setPatientListComparator(Comparator<Patient> comparator) {
             throw new AssertionError("This method should not be called.");
         }
     }

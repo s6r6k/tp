@@ -1,5 +1,6 @@
 package doctorwho.logic.commands;
 
+import static doctorwho.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -61,7 +62,7 @@ public class DeleteAppointmentCommand extends Command {
         );
 
         model.setPatient(patientToEdit, updatedPatient);
-        model.updateFilteredPatientList(Model.PREDICATE_SHOW_ALL_PATIENTS);
+        model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
         return new CommandResult(
                 String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, updatedPatient.getName()));
     }

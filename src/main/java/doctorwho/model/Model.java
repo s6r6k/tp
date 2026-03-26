@@ -99,5 +99,5 @@ public interface Model {
      *
      * @throws NullPointerException if {@code comparator} is null.
      */
-    void updatePatientListComparator(Comparator<Patient> comparator);
+    void setPatientListComparator(Comparator<Patient> comparator);
 }

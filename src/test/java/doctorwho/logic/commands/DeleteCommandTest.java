@@ -3,6 +3,7 @@ package doctorwho.logic.commands;
 import static doctorwho.logic.commands.CommandTestUtil.assertCommandFailure;
 import static doctorwho.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static doctorwho.logic.commands.CommandTestUtil.showPatientAtIndex;
+import static doctorwho.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 import static doctorwho.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static doctorwho.testutil.TypicalIndexes.INDEX_SECOND_PATIENT;
 import static doctorwho.testutil.TypicalPatients.getTypicalAddressBook;
@@ -65,7 +66,7 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePatient(patientToDelete);
-        expectedModel.updateFilteredPatientList(Model.PREDICATE_SHOW_ALL_PATIENTS);
+        expectedModel.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -94,7 +95,7 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(addressBook, new UserPrefs());
         expectedModel.deletePatient(withAppointment);
-        expectedModel.updateFilteredPatientList(Model.PREDICATE_SHOW_ALL_PATIENTS);
+        expectedModel.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
 
         assertCommandSuccess(deleteCommand, customModel, expectedMessage, expectedModel);
         assertEquals(1, customModel.getFilteredPatientList().size());

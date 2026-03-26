@@ -47,7 +47,7 @@ public class ListAppointmentCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(addressBook), new UserPrefs());
 
         expectedModel.updateFilteredPatientList(patient -> patient.getAppointment().isPresent());
-        expectedModel.updatePatientListComparator(
+        expectedModel.setPatientListComparator(
                 Comparator.comparing(patient -> patient.getAppointment().get().getStartTime()));
 
         ListAppointmentCommand command = new ListAppointmentCommand();
@@ -86,7 +86,7 @@ public class ListAppointmentCommandTest {
         expectedModel.updateFilteredPatientList(patient -> patient.getAppointment()
                 .map(appointment -> appointment.getStartTime().toLocalDate().equals(filterDate))
                 .orElse(false));
-        expectedModel.updatePatientListComparator(
+        expectedModel.setPatientListComparator(
                 Comparator.comparing(patient -> patient.getAppointment().get().getStartTime()));
 
         ListAppointmentCommand command = new ListAppointmentCommand(filterDate);

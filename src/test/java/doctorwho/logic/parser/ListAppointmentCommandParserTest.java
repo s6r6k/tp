@@ -23,18 +23,19 @@ public class ListAppointmentCommandParserTest {
 
     @Test
     public void parse_validDate_returnsDateFilteredCommand() {
-        assertParseSuccess(parser, " dt/12-03-2026",
+        assertParseSuccess(parser, " " + PREFIX_APPOINTMENT_DATE + "12-03-2026",
                 new ListAppointmentCommand(LocalDate.of(2026, 3, 12)));
     }
 
     @Test
     public void parse_invalidDate_throwsParseException() {
-        assertParseFailure(parser, " dt/2026-03-12", ParserUtil.MESSAGE_INVALID_DATE_FORMAT);
+        assertParseFailure(parser, " " + PREFIX_APPOINTMENT_DATE + "2026-03-12",
+                ParserUtil.MESSAGE_INVALID_DATE_FORMAT);
     }
 
     @Test
     public void parse_invalidCalendarDate_throwsParseException() {
-        assertParseFailure(parser, " dt/29-02-2026", ParserUtil.MESSAGE_INVALID_DATE);
+        assertParseFailure(parser, " " + PREFIX_APPOINTMENT_DATE + "29-02-2026", ParserUtil.MESSAGE_INVALID_DATE);
     }
 
     @Test
@@ -45,7 +46,8 @@ public class ListAppointmentCommandParserTest {
 
     @Test
     public void parse_duplicateDatePrefix_throwsParseException() {
-        assertParseFailure(parser, " dt/12-03-2026 dt/13-03-2026",
+        assertParseFailure(parser, " " + PREFIX_APPOINTMENT_DATE + "12-03-2026 "
+                        + PREFIX_APPOINTMENT_DATE + "13-03-2026",
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_APPOINTMENT_DATE));
     }
 }
