@@ -68,16 +68,16 @@ Yes, if your clinic is still:
 Here is a quick reference list for the commands DoctorWho provides, more detailed information about all of the commands
 can be found in [Features](#features).
 
- Action                  | Format, Examples                                                                                                                                                                                
--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- **Add**                 | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [al/ALLERGY] [c/CONDITION]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 al/dust c/allergic rhinitis` 
- **Clear**               | `clear`                                                                                                                                                                                         
- **Delete**              | `delete PATIENT_NUMBER`<br> e.g., `delete 3`                                                                                                                                                    
- **Edit**                | `edit PATIENT_NUMBER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [al/ALLERGY] [c/CONDITION]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                         
- **Find**                | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                      
- **Add appointments**    | `apt PATIENT_NUMBER d/DATETIME dur/DURATION [note/NOTE]`<br> e.g., `apt 2 d/01-04-2026 09:00 dur/60 note/Follow-up for diabetes review`                                                         
- **Delete appointments** | `dapt PATIENT_NUMBER`<br> e.g., `dapt 1`                                                                                                                                                        
- **Help**                | `help`                                                                                                                                                                                          
+| Action                  | Format, Examples                                                                                                                                                                                |
+|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**                 | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [al/ALLERGY] [c/CONDITION]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 al/dust c/allergic rhinitis` |
+| **Clear**               | `clear`                                                                                                                                                                                         |
+| **Delete**              | `delete PATIENT_NUMBER`<br> e.g., `delete 3`                                                                                                                                                    |
+| **Edit**                | `edit PATIENT_NUMBER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [al/ALLERGY] [c/CONDITION]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                         |
+| **Find**                | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                      |
+| **Add appointments**    | `apt PATIENT_NUMBER d/DATETIME dur/DURATION [note/NOTE]`<br> e.g., `apt 2 d/01-04-2026 09:00 dur/60 note/Follow-up for diabetes review `                                                        |
+| **Delete appointments** | `dapt PATIENT_NUMBER`<br> e.g., `dapt 1`                                                                                                                                                        |
+| **Help**                | `help`                                                                                                                                                                                          |
 
 ## Features
 
