@@ -3,6 +3,7 @@ package doctorwho.logic.commands;
 import static doctorwho.logic.commands.CommandTestUtil.assertCommandFailure;
 import static doctorwho.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static doctorwho.logic.commands.CommandTestUtil.showPatientAtIndex;
+import static doctorwho.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 import static doctorwho.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static doctorwho.testutil.TypicalIndexes.INDEX_SECOND_PATIENT;
 import static doctorwho.testutil.TypicalPatients.getTypicalAddressBook;
@@ -10,14 +11,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 import doctorwho.commons.core.index.Index;
 import doctorwho.logic.Messages;
+import doctorwho.model.AddressBook;
 import doctorwho.model.Model;
 import doctorwho.model.ModelManager;
 import doctorwho.model.UserPrefs;
 import doctorwho.model.patient.Patient;
+import doctorwho.testutil.PatientBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -61,9 +66,40 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePatient(patientToDelete);
-        showNoPatient(expectedModel);
+        expectedModel.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_afterListAppointmentsCommand_resetsToShowAllPatients() {
+        Patient withAppointment = new PatientBuilder()
+            .withName("With Appointment")
+            .withAppointment(new doctorwho.model.patient.Appointment("12-03-2026 09:00", 30, "A"))
+            .build();
+        Patient withoutAppointment = new PatientBuilder()
+            .withName("Without Appointment")
+            .withAppointment(null)
+            .build();
+
+        AddressBook addressBook = new AddressBook();
+        addressBook.addPatient(withAppointment);
+        addressBook.addPatient(withoutAppointment);
+
+        Model customModel = new ModelManager(addressBook, new UserPrefs());
+        new ListAppointmentCommand(LocalDate.of(2026, 3, 12)).execute(customModel);
+
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PATIENT);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PATIENT_SUCCESS,
+            Messages.format(withAppointment));
+
+        Model expectedModel = new ModelManager(addressBook, new UserPrefs());
+        expectedModel.deletePatient(withAppointment);
+        expectedModel.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
+
+        assertCommandSuccess(deleteCommand, customModel, expectedMessage, expectedModel);
+        assertEquals(1, customModel.getFilteredPatientList().size());
+        assertEquals(withoutAppointment, customModel.getFilteredPatientList().get(0));
     }
 
     @Test
@@ -109,12 +145,4 @@ public class DeleteCommandTest {
         assertEquals(expected, deleteCommand.toString());
     }
 
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoPatient(Model model) {
-        model.updateFilteredPatientList(p -> false);
-
-        assertTrue(model.getFilteredPatientList().isEmpty());
-    }
 }

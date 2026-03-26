@@ -11,11 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import org.junit.jupiter.api.Test;
 
 import doctorwho.commons.core.GuiSettings;
 import doctorwho.model.patient.NameContainsKeywordsPredicate;
+import doctorwho.model.patient.Patient;
 import doctorwho.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -91,6 +93,41 @@ public class ModelManagerTest {
     @Test
     public void getFilteredPatientList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPatientList().remove(0));
+    }
+
+    @Test
+    public void updatePatientListComparator_nullComparator_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setPatientListComparator(null));
+    }
+
+    @Test
+    public void updatePatientListComparator_validComparator_noException() {
+        modelManager.addPatient(ALICE);
+        modelManager.addPatient(BENSON);
+        Comparator<Patient> reverseNameComparator =
+            Comparator.comparing((Patient patient) -> patient.getName().fullName)
+                .reversed();
+
+        modelManager.setPatientListComparator(reverseNameComparator);
+
+        assertEquals(2, modelManager.getFilteredPatientList().size());
+        assertEquals(BENSON, modelManager.getFilteredPatientList().get(0));
+        assertEquals(ALICE, modelManager.getFilteredPatientList().get(1));
+    }
+
+    @Test
+    public void updateFilteredPatientList_resetsComparatorToDefaultOrder() {
+        modelManager.addPatient(ALICE);
+        modelManager.addPatient(BENSON);
+        Comparator<Patient> reverseNameComparator =
+            Comparator.comparing((Patient patient) -> patient.getName().fullName)
+                .reversed();
+        modelManager.setPatientListComparator(reverseNameComparator);
+
+        modelManager.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
+
+        assertEquals(ALICE, modelManager.getFilteredPatientList().get(0));
+        assertEquals(BENSON, modelManager.getFilteredPatientList().get(1));
     }
 
     @Test

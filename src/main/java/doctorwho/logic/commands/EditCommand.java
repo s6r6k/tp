@@ -107,7 +107,7 @@ public class EditCommand extends Command {
 
         Set<Tag> existingTags = patientToEdit.getTags();
 
-        //Keep the existing tags of each type unless that specific type is being replaced
+        // Keep the existing tags of each type unless that specific type is being replaced.
         Set<Tag> existingAllergies = existingTags.stream()
                 .filter(t -> t instanceof Allergy)
                 .collect(Collectors.toSet());
@@ -146,7 +146,7 @@ public class EditCommand extends Command {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
-                .add("EditPatientDescriptor", editPatientDescriptor)
+                .add("editPatientDescriptor", editPatientDescriptor)
                 .toString();
     }
 

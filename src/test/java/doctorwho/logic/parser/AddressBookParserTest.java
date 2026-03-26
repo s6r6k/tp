@@ -3,11 +3,13 @@ package doctorwho.logic.parser;
 import static doctorwho.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static doctorwho.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static doctorwho.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DATE;
 import static doctorwho.testutil.Assert.assertThrows;
 import static doctorwho.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +24,7 @@ import doctorwho.logic.commands.EditCommand.EditPatientDescriptor;
 import doctorwho.logic.commands.ExitCommand;
 import doctorwho.logic.commands.FindCommand;
 import doctorwho.logic.commands.HelpCommand;
+import doctorwho.logic.commands.ListAppointmentCommand;
 import doctorwho.logic.commands.ListCommand;
 import doctorwho.logic.parser.exceptions.ParseException;
 import doctorwho.model.patient.NameContainsKeywordsPredicate;
@@ -86,6 +89,17 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_listAppointment() throws Exception {
+        ListAppointmentCommand listAllCommand = (ListAppointmentCommand) parser.parseCommand(
+                ListAppointmentCommand.COMMAND_WORD);
+        assertEquals(new ListAppointmentCommand(), listAllCommand);
+
+        ListAppointmentCommand listByDateCommand = (ListAppointmentCommand) parser.parseCommand(
+            ListAppointmentCommand.COMMAND_WORD + " " + PREFIX_APPOINTMENT_DATE + "12-03-2026");
+        assertEquals(new ListAppointmentCommand(LocalDate.of(2026, 3, 12)), listByDateCommand);
     }
 
     @Test

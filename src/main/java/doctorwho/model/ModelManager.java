@@ -4,6 +4,7 @@ import static doctorwho.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,6 +13,7 @@ import doctorwho.commons.core.LogsCenter;
 import doctorwho.model.patient.Patient;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Patient> filteredPatients;
+    private final SortedList<Patient> sortedFilteredPatients;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +37,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPatients = new FilteredList<>(this.addressBook.getPatientList());
+        sortedFilteredPatients = new SortedList<>(filteredPatients);
     }
 
     public ModelManager() {
@@ -124,13 +128,20 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Patient> getFilteredPatientList() {
-        return filteredPatients;
+        return sortedFilteredPatients;
     }
 
     @Override
     public void updateFilteredPatientList(Predicate<Patient> predicate) {
         requireNonNull(predicate);
+        sortedFilteredPatients.setComparator(null);
         filteredPatients.setPredicate(predicate);
+    }
+
+    @Override
+    public void setPatientListComparator(Comparator<Patient> comparator) {
+        requireNonNull(comparator);
+        sortedFilteredPatients.setComparator(comparator);
     }
 
     @Override
@@ -147,7 +158,8 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPatients.equals(otherModelManager.filteredPatients);
+                && filteredPatients.equals(otherModelManager.filteredPatients)
+                && sortedFilteredPatients.equals(otherModelManager.sortedFilteredPatients);
     }
 
 }
