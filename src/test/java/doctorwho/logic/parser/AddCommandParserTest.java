@@ -54,7 +54,8 @@ import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Nric;
 import doctorwho.model.patient.Patient;
 import doctorwho.model.patient.Phone;
-import doctorwho.model.tag.Tag;
+import doctorwho.model.tag.Allergy;
+import doctorwho.model.tag.Condition;
 import doctorwho.testutil.PatientBuilder;
 
 public class AddCommandParserTest {
@@ -280,5 +281,12 @@ public class AddCommandParserTest {
         // invalid condition
         assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + INVALID_CONDITION_DESC, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+            + INVALID_ALLERGY_DESC, Allergy.MESSAGE_CONSTRAINTS);
+
+        // invalid condition
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+            + INVALID_CONDITION_DESC, Condition.MESSAGE_CONSTRAINTS);
+
     }
 }

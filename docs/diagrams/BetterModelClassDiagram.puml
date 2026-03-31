@@ -18,4 +18,8 @@ Patient *--> Name
 Patient *--> Phone
 Patient *--> Email
 Patient *--> Address
+Patient *--> "0..1" Appointment
+
+Allergy -left-|> Tag
+Condition -up-|> Tag
 @enduml
