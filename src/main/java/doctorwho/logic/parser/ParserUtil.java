@@ -33,7 +33,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Date should be in 'dd-MM-yyyy' format.";
     public static final String MESSAGE_INVALID_DATE = "Date is invalid.";
 
-    private static final DateTimeFormatter APPOINTMENT_DATE_FORMATTER = DateTimeFormatter
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter
         .ofPattern("dd-MM-uuuu")
         .withResolverStyle(ResolverStyle.STRICT);
 
@@ -184,7 +184,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the specified date is invalid.
      */
-    public static LocalDate parseAppointmentDate(String date) throws ParseException {
+    public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
 
@@ -193,7 +193,7 @@ public class ParserUtil {
         }
 
         try {
-            return LocalDate.parse(trimmedDate, APPOINTMENT_DATE_FORMATTER);
+            return LocalDate.parse(trimmedDate, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new ParseException(MESSAGE_INVALID_DATE, e);
         }
