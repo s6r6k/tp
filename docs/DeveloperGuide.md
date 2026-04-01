@@ -10,8 +10,14 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the
-  original source as well}
+* AddressBook-Level3 (AB3): The original source code for this application was adapted from the
+[AddressBook-Level3](https://github.com/se-edu/addressbook-level3)
+ project created by the SE-EDU initiative. 
+* NRIC Checksum: Introduce documentation for NRIC checksum. [Link](https://userapps.support.sap.com/sap/support/knowledge/en/2572734)
+* JavaFX: Used for the Graphical User Interface (GUI). [Link](https://openjfx.io/)
+* JUnit5: Used for the unit testing framework. [Link](https://junit.org/junit5/)
+* PlantUML: Used to generate the diagrams in this documentation. [Link](https://plantuml.com/)
+* Icons: PNG Icons from [ICONPACKS](https://www.iconpacks.net/)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -286,12 +292,37 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
 ### \[Proposed\] Data archiving
 
-_{Explain here how the data archiving feature will be implemented}_
+The proposed data archiving feature allows doctors to move inactive or deceased patients from the active patient list to an archive. This reduces visual clutter and improves performance while retaining historical records.
 
+#### Proposed Implementation
+
+The archiving mechanism will be facilitated by adding an `ArchiveBook` to the `Model`, functioning similarly to the `AddressBook`.
+
+* An `archive PATIENT_INDEX` command will be added.
+* `Model` will be extended with `Model#archivePatient(Patient)` and `Model#unarchivePatient(Patient)`.
+* When a patient is archived, they are removed from the active `UniquePatientList` and added to the `ArchiveBook`.
+* The `Storage` component will be updated to save the `ArchiveBook` to a separate `data/archive.json` file.
+
+#### Design considerations:
+
+* **Alternative 1 (current choice):** Use a separate `ArchiveBook` and `archive.json`.
+    * Pros: Keeps the main `AddressBook` lightweight and fast. Prevents archived patients from appearing in regular search results.
+    * Cons: Requires duplicating some model and storage logic.
+* **Alternative 2:** Add an `isArchived` boolean field to the `Patient` model.
+    * Pros: Simpler to implement.
+    * Cons: The main JSON file will continue to grow indefinitely, potentially degrading performance over time.
+
+### \[Proposed\] Automated Appointment Reminders
+
+The proposed appointment reminder feature will alert the doctor of any upcoming appointments within the next 24 hours upon launching the application or while it is running.
+
+#### Proposed Implementation
+
+* A `ReminderManager` class will be added to the `Logic` component.
+* `ReminderManager` will periodically query the `Model` for patients with an `Appointment` whose start time falls within a specific threshold (e.g., next 24 hours).
+* The `UI` will be updated to include a `ReminderPanel` that observes the `ReminderManager` and displays upcoming appointments in a dedicated side panel or via visual indicators next to patient names.
 
 --------------------------------------------------------------------------------------------------------------------
 
