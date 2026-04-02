@@ -428,9 +428,8 @@ Extensions
 **Main Success Scenario:**
 
 1. User requests to list appointments.
-2. DoctorWho displays all patients with scheduled appointments.
+2. DoctorWho displays all appointments.
 3. DoctorWho presents the appointments in ascending start date-time order.
-4. User reviews the displayed appointment list.
 
    Use case ends.
 
@@ -443,6 +442,11 @@ Extensions
       Use case ends.
 
 * 1b. User enters an invalid date value.
+    * 1b1. DoctorWho shows an error message.
+
+      Use case ends.
+
+* 1c. User enters an invalid date format.
     * 1b1. DoctorWho shows an error message.
 
       Use case ends.

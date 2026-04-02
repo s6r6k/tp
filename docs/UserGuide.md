@@ -25,41 +25,46 @@ Yes, if your clinic is still:
 
 ## Quick start
 
-1. First, make sure you have Java `17` or above installed in your computer!<br>
-   **Mac users:** Check out [this guide](https://se-education.org/guides/tutorials/javaInstallationMac.html) to get the
-   exact JDK version you need.
+Don't worry if you're not tech-savvy — just follow these steps one by one and you'll be up and running in no time!
 
-2. Next, download the latest `doctorwho.jar` file from [here](https://github.com/AY2526S2-CS2103T-F10-1/tp/releases).
+1. First, make sure you have Java `17` or above installed on your computer. Not sure if you have it? Open a terminal and type `java -version` — if you see a version number of 17 or higher, you're good to go!<br>
+   **Mac users:** Check out [this guide](https://se-education.org/guides/tutorials/javaInstallationMac.html) to get the exact JDK version you need.
 
-3. Then, move the `doctorwho.jar` file to the folder where you want to keep your contacts (we suggest you place it in a
-   new, empty folder!)
-   ![Moving .jar file to folder](images/ShiftJarFile.gif)
+2. Next, download the latest `doctorwho.jar` file from [here](https://github.com/AY2526S2-CS2103T-F10-1/tp/releases). You'll find it under the **Assets** section of the latest release — just click on `doctorwho.jar` to download it.
 
-4. Now, open up a command terminal, go to the folder where `doctorwho.jar` is, and use the `java -jar doctorwho.jar`
-   command to run the application. You've just taken your first step toward managing contacts quickly!
-   ![Opening the .jar file](images/OpeningJarFile.gif)
+3. Move the `doctorwho.jar` file to the folder where you'd like to store your patient data. We recommend creating a brand new empty folder for this (e.g. a folder named `DoctorWho` on your Desktop), so everything stays neat and tidy.
 
-5. You should now see some sample data. This is what DoctorWho will look like!
-   ![Ui](images/Ui.png)
+   ![Moving .jar file to folder](images/ShiftingJarFile.png)
 
-6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
-   open the help window.<br>
-   Some example commands you can try:
+4. Now, let's launch the app! Open a command terminal in your `DoctorWho` folder:
 
-    * `list` : Lists all patients.
+   - **Windows:** Press `Win + R`, type `cmd`, and hit Enter.
+   - **Mac/Linux:** Search for **Terminal** in Spotlight or your app menu.
 
-    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a patient named `John Doe`
-      to the list of patients.
+   Then, navigate to your folder. For example, if you placed it on your Desktop in a folder called `DoctorWho`, type:
+```
+   cd Desktop/DoctorWho
+```
+   - Finally, run the app with:
+```
+   java -jar doctorwho.jar
+```
 
-    * `delete 3` : Deletes the 3rd patient shown in the current list.
+   ![Opening the app via terminal](images/OpeningJarFile.png)
 
-    * `apt 3 d/01-04-2026 09:00 dur/60 note/Follow-up for diabetes review` : Schedule an appointment for the 3rd patient
-      shown in the current list.
+5. DoctorWho will launch with some sample data so you can explore right away — it should look something like this:
 
-    * `dapt 3` : Remove an appointment from the 3rd patient shown on the list.
+   ![DoctorWho UI](images/Ui.png)
 
-7. Refer to the [Features](#features) below for details of each command, and [Command Summary](#command-summary) gives
-   you a quick cheatsheet in case you forget.
+6. Type a command in the command box at the top and press **Enter** to run it. Here are a few to try out:
+
+   * `list` — Lists all patients.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` — Adds a patient named `John Doe`.
+   * `delete 3` — Deletes the 3rd patient in the current list.
+   * `apt 3 d/01-04-2026 09:00 dur/60 note/Follow-up for diabetes review` — Schedules an appointment for the 3rd patient.
+   * `dapt 3` — Removes the appointment from the 3rd patient.
+
+7. When you're ready to explore more, check out the [Features](#features) section for the full command details, or jump to the [Command Summary](#command-summary) for a quick cheatsheet!
 
 --------------------------------------------------------------------------------------------------------------------
 
