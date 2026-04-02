@@ -135,7 +135,7 @@ DoctorWho currently accepts the following special characters in the patient's na
 | Apostrophes (') | O'Brien       |
 | Commas (,)      | Henry, Tan    |
 
-However, there are other common special characters used in names that are not yet supported. These are some suggested 
+However, there are other common special characters used in names that are not yet supported. These are some suggested
 replacements you can use if you encounter these special characters:
 
 | Character  | Invalid example | Suggested replacements (Valid) | Future support                                             |
