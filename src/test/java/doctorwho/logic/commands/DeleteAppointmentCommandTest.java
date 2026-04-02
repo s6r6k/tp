@@ -88,13 +88,15 @@ public class DeleteAppointmentCommandTest {
     @Test
     public void execute_afterListAppointmentsCommand_resetsToShowAllPatients() {
         Patient withAppointment = new PatientBuilder()
-                .withName("With Appointment")
-                .withAppointment(new Appointment("12-03-2026 08:00", 30, "A"))
-                .build();
+            .withName("With Appointment")
+            .withNric("S9435125A")
+            .withAppointment(new Appointment("12-03-2026 08:00", 30, "A"))
+            .build();
         Patient withoutAppointment = new PatientBuilder()
-                .withName("Without Appointment")
-                .withAppointment(null)
-                .build();
+            .withName("Without Appointment")
+            .withNric("S9876543C")
+            .withAppointment(null)
+            .build();
 
         AddressBook addressBook = new AddressBook();
         addressBook.addPatient(withAppointment);
