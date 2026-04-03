@@ -511,6 +511,47 @@ Extensions
     * 3a1.DoctorWho displays an error message indicating that the index is invalid.
       <br>Use case ends.
 
+**Use Case 07: List Appointments**
+
+**Preconditions:**
+* User has launched the DoctorWho application.
+* User is at the command prompt.
+
+**Main Success Scenario:**
+
+1. User requests to list appointments.
+2. DoctorWho displays all appointments.
+3. DoctorWho presents the appointments in ascending start date-time order.
+
+   Use case ends.
+
+**Extensions:**
+
+* 1a. User requests to list appointments for a specific date.
+    * 1a1. DoctorWho displays only appointments on the specified date.
+    * 1a2. DoctorWho presents the results in ascending start date-time order.
+
+      Use case ends.
+
+* 1b. User enters an invalid date value.
+    * 1b1. DoctorWho shows an error message.
+
+      Use case ends.
+
+* 1c. User enters an invalid date format.
+    * 1b1. DoctorWho shows an error message.
+
+      Use case ends.
+
+* 2a. There are no appointments to display.
+    * 2a1. DoctorWho shows an empty result list and a corresponding status message.
+
+      Use case ends.
+
+**Post conditions:**
+* The currently displayed list is updated to show appointment-based results.
+* If a date is provided, only appointments on that date are shown.
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
