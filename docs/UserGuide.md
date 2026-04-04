@@ -48,7 +48,7 @@ Yes, if your clinic is still:
 
     * `list` : Lists all patients.
 
-    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a patient named `John Doe`
+    * `add n/John Doe ic/S1234567D dob/01-04-2003 p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a patient named `John Doe`
       to the list of patients.
 
     * `delete 3` : Deletes the 3rd patient shown in the current list.
@@ -68,16 +68,16 @@ Yes, if your clinic is still:
 Here is a quick reference list for the commands DoctorWho provides, more detailed information about all of the commands
 can be found in [Features](#features).
 
-| Action                  | Format, Examples                                                                                                                                                                                |
-|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**                 | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [al/ALLERGY] [c/CONDITION]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 al/dust c/allergic rhinitis` |
-| **Clear**               | `clear`                                                                                                                                                                                         |
-| **Delete**              | `delete PATIENT_NUMBER`<br> e.g., `delete 3`                                                                                                                                                    |
-| **Edit**                | `edit PATIENT_NUMBER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [al/ALLERGY] [c/CONDITION]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                         |
-| **Find**                | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                      |
-| **Add appointments**    | `apt PATIENT_NUMBER d/DATETIME dur/DURATION [note/NOTE]`<br> e.g., `apt 2 d/01-04-2026 09:00 dur/60 note/Follow-up for diabetes review `                                                        |
-| **Delete appointments** | `dapt PATIENT_NUMBER`<br> e.g., `dapt 1`                                                                                                                                                        |
-| **Help**                | `help`                                                                                                                                                                                          |
+| Action                  | Format, Examples                                                                                                                                                                                                                            |
+|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**                 | `add n/NAME ic/NRIC dob/DOB p/PHONE_NUMBER e/EMAIL a/ADDRESS [al/ALLERGY] [c/CONDITION]…​` <br> e.g., `add n/James Ho ic/S1234567D dob/01-04-2003 p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 al/dust c/allergic rhinitis` |
+| **Clear**               | `clear`                                                                                                                                                                                                                                     |
+| **Delete**              | `delete PATIENT_NUMBER`<br> e.g., `delete 3`                                                                                                                                                                                                |
+| **Edit**                | `edit PATIENT_NUMBER [n/NAME] [ic/NRIC] [dob/DOB] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [al/ALLERGY] [c/CONDITION]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                 |
+| **Find**                | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                                                  |
+| **Add appointments**    | `apt PATIENT_NUMBER d/DATETIME dur/DURATION [note/NOTE]`<br> e.g., `apt 2 d/01-04-2026 09:00 dur/60 note/Follow-up for diabetes review `                                                                                                    |
+| **Delete appointments** | `dapt PATIENT_NUMBER`<br> e.g., `dapt 1`                                                                                                                                                                                                    |
+| **Help**                | `help`                                                                                                                                                                                                                                      |
 
 ## Features
 
@@ -121,7 +121,7 @@ Format: `help`
 
 Adds a patient to DoctorWho.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [al/ALLERGY] [c/CONDITION]…​`
+Format: `add n/NAME ic/NRIC dob/DOB p/PHONE_NUMBER e/EMAIL a/ADDRESS [al/ALLERGY] [c/CONDITION]…​`
 
 <div markdown="block" class="alert alert-info">
 
@@ -151,9 +151,9 @@ A patient can have any number of allergies or medical conditions (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe e/bcrowe@example.com a/Newgate Prison p/1234567 al/Penicillin c/cold`
-* `add n/Tim Chal e/betsycrowe@example.com a/Newgate Prison p/1234567 al/Morphine`
+* `add n/John Doe ic/S1234567D dob/01-04-2003 p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe ic/S2345678H dob/02-04-2003 e/bcrowe@example.com a/Newgate Prison p/1234567 al/Penicillin c/cold`
+* `add n/Tim Chal ic/S4567890C dob/03-04-2003 e/betsycrowe@example.com a/Newgate Prison p/1234567 al/Morphine`
 
 ### Listing all patients : `list`
 
@@ -165,7 +165,7 @@ Format: `list`
 
 Edits an existing patient in DoctorWho.
 
-Format: `edit PATIENT_NUMBER [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [al/ALLERGY] [c/CONDITION]…​`
+Format: `edit PATIENT_NUMBER [n/NAME] [ic/NRIC] [dob/DOB] [p/PHONE] [e/EMAIL] [a/ADDRESS] [al/ALLERGY] [c/CONDITION]…​`
 
 * Edits the patient at the specified `PATIENT_NUMBER`. The index refers to the index number shown in the displayed
   patient list. The index **must be a positive integer** 1, 2, 3, …​

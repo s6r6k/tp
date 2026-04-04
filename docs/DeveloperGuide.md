@@ -40,10 +40,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [
-`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [
-`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in
-charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
 
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
@@ -588,3 +585,7 @@ testers are expected to do more *exploratory* testing.
    patient's name. However, this means that the stored patient name may not be a match their exact government name. We
    plan to implement apostrophe string enclosing to allow such special characters to be included in the name without
    conflicting with the special characters used for the argument prefixes.
+2. Include cross-checks between a patient's date of birth and NRIC. Currently, we don't check that the patient's birth
+   year matches their NRIC due to complexities and edge cases. Additionally, patients born before 1968 won't have their
+   birth year as the first two digits of their NRIC, making this impossible in certain cases. We plan to implement a
+   best-effort check that will flag possible mismatches.
