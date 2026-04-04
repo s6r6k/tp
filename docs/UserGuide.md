@@ -25,41 +25,47 @@ Yes, if your clinic is still:
 
 ## Quick start
 
-1. First, make sure you have Java `17` or above installed in your computer!<br>
-   **Mac users:** Check out [this guide](https://se-education.org/guides/tutorials/javaInstallationMac.html) to get the
-   exact JDK version you need.
+Don't worry if you're not tech-savvy — just follow these steps one by one and you'll be up and running in no time!
 
-2. Next, download the latest `doctorwho.jar` file from [here](https://github.com/AY2526S2-CS2103T-F10-1/tp/releases).
+1. First, make sure you have Java `17` or above installed on your computer. Not sure if you have it? Open a terminal and type `java -version` — if you see a version number of 17 or higher, you're good to go!<br>
+   **Mac users:** Check out [this guide](https://se-education.org/guides/tutorials/javaInstallationMac.html) to get the exact JDK version you need.
 
-3. Then, move the `doctorwho.jar` file to the folder where you want to keep your contacts (we suggest you place it in a
-   new, empty folder!)
-   ![Moving .jar file to folder](images/ShiftJarFile.gif)
+2. Next, download the latest `doctorwho.jar` file from [here](https://github.com/AY2526S2-CS2103T-F10-1/tp/releases). You'll find it under the **Assets** section of the latest release — just click on `doctorwho.jar` to download it.
 
-4. Now, open up a command terminal, go to the folder where `doctorwho.jar` is, and use the `java -jar doctorwho.jar`
-   command to run the application. You've just taken your first step toward managing contacts quickly!
-   ![Opening the .jar file](images/OpeningJarFile.gif)
+3. Move the `doctorwho.jar` file to the folder where you'd like to store your patient data. We recommend creating a brand new empty folder for this (e.g. a folder named `DoctorWho` on your Desktop), so everything stays neat and tidy.
 
-5. You should now see some sample data. This is what DoctorWho will look like!
-   ![Ui](images/Ui.png)
+   ![Moving .jar file to folder](images/ShiftingJarFile.png)
 
-6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
-   open the help window.<br>
-   Some example commands you can try:
+4. Now, let's launch the app! Open a command terminal in your `DoctorWho` folder:
 
-    * `list` : Lists all patients.
+   - **Windows:** Press `Win + R`, type `cmd`, and hit Enter.
+   - **Mac/Linux:** Search for **Terminal** in Spotlight or your app menu.
 
-    * `add n/John Doe ic/S1234567D dob/01-04-2003 p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a patient named `John Doe`
-      to the list of patients.
+   Then, navigate to your folder. For example, if you placed it on your Desktop in a folder called `DoctorWho`, type:
+```
+   cd Desktop/DoctorWho
+```
+   - Finally, run the app with:
+```
+   java -jar doctorwho.jar
+```
 
-    * `delete 3` : Deletes the 3rd patient shown in the current list.
+   ![Opening the app via terminal](images/OpeningJarFile.png)
 
-    * `apt 3 d/01-04-2026 09:00 dur/60 note/Follow-up for diabetes review` : Schedule an appointment for the 3rd patient
-      shown in the current list.
+5. DoctorWho will launch with some sample data so you can explore right away — it should look something like this:
 
-    * `dapt 3` : Remove an appointment from the 3rd patient shown on the list.
+   ![DoctorWho UI](images/Ui.png)
 
-7. Refer to the [Features](#features) below for details of each command, and [Command Summary](#command-summary) gives
-   you a quick cheatsheet in case you forget.
+6. Type a command in the command box at the top and press **Enter** to run it. Here are a few to try out:
+
+   * `list` — Lists all patients.
+   * `add n/John Doe ic/S1234567D dob/01-04-2003 p/98765432 e/johnd@example.com a/John street, block 123, #01-01` — Adds a patient named `John Doe`.
+   * `delete 3` — Deletes the 3rd patient in the current list.
+   * `apt 3 d/01-04-2026 09:00 dur/60 note/Follow-up for diabetes review` — Schedules an appointment for the 3rd patient.
+   * `lsapt d/12-03-2026` — List appointments for 12th March 2026.
+   * `dapt 3` — Removes the appointment from the 3rd patient.
+
+7. When you're ready to explore more, check out the [Features](#features) section for the full command details, or jump to the [Command Summary](#command-summary) for a quick cheatsheet!
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -71,13 +77,16 @@ can be found in [Features](#features).
 | Action                  | Format, Examples                                                                                                                                                                                                                            |
 |-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**                 | `add n/NAME ic/NRIC dob/DOB p/PHONE_NUMBER e/EMAIL a/ADDRESS [al/ALLERGY] [c/CONDITION]…​` <br> e.g., `add n/James Ho ic/S1234567D dob/01-04-2003 p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 al/dust c/allergic rhinitis` |
-| **Clear**               | `clear`                                                                                                                                                                                                                                     |
-| **Delete**              | `delete PATIENT_NUMBER`<br> e.g., `delete 3`                                                                                                                                                                                                |
+| **List**                | `list`                                                                                                                                                                                                                                      |
 | **Edit**                | `edit PATIENT_NUMBER [n/NAME] [ic/NRIC] [dob/DOB] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [al/ALLERGY] [c/CONDITION]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                 |
 | **Find**                | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                                                  |
+| **Delete**              | `delete PATIENT_NUMBER`<br> e.g., `delete 3`                                                                                                                                                                                                |
 | **Add appointments**    | `apt PATIENT_NUMBER d/DATETIME dur/DURATION [note/NOTE]`<br> e.g., `apt 2 d/01-04-2026 09:00 dur/60 note/Follow-up for diabetes review `                                                                                                    |
 | **Delete appointments** | `dapt PATIENT_NUMBER`<br> e.g., `dapt 1`                                                                                                                                                                                                    |
+| **List appointments**   | `lsapt [d/DATE]`<br> e.g., `lsapt`, `lsapt d/14-03-2026`                                                                                                                                                                                    |
+| **Clear**               | `clear`                                                                                                                                                                                                                                     |
 | **Help**                | `help`                                                                                                                                                                                                                                      |
+| **Exit**                | `exit`                                                                                                                                                                                                                                      |
 
 ## Features
 
@@ -217,34 +226,65 @@ Examples:
 
 ### Adding an appointment : `apt`
 
-Adds an appointment for the specified patient in DoctorWho.
+Adds an appointment to the patient identified by the index number used in the displayed patient list. Supply the start date and time, duration and an optional note. Existing appointment will be overwritten by the new appointment.
 
-Format: `apt PATIENT_NUMBER d/DATETIME dur/DURATION [note/NOTE]`
+Format: `apt INDEX d/DATETIME dur/DURATION [note/NOTE]`
 
-* Creates and adds an appointment for the patient at the specified `PATIENT_NUMBER`.
-* The PATIENT_NUMBER **must be a positive integer** 1, 2, 3, …​
-* The date and time must be in the format `dd-mm-YYYY hh:mm` e.g, `01-04-2026 09:00` refers to 1st April 2026, 09:00 am.
+* Creates and adds an appointment for the patient at the specified `INDEX`.
+* The `INDEX` **must be a positive integer** 1, 2, 3, …​
+* The date and time must be in the format `dd-MM-yyyy HH:mm` e.g, `12-03-2026 14:00` refers to 12th March 2026, 14:00.
 * The duration **must be a positive integer** in **minutes**.
+* The note is optional.
 
 Examples:
 
-* `apt 2 d/01-04-2026 09:00 dur/60 note/Follow-up for diabetes review` adds an appointment to the 2nd patient, from the
-  top, of the patient list, scheduled for 1st April 2026, at 09:00 am. A note will be indicated with
-  `Note | Follow-up for diabetes review`
+* `apt 1 d/12-03-2026 14:00 dur/30 note/Routine Checkup` adds an appointment to the 1st patient, from the
+  top, of the patient list, scheduled for 12th March 2026, at 14:00. A note will be indicated with
+  `Note | Routine Checkup`
+
+### Listing appointments : `lsapt`
+
+Lists appointments, optionally filtering by a specific appointment date. The appointments are shown in ascending date-time order.
+
+Format: `lsapt [d/DATE]`
+
+* Shows all appointments if no date is provided.
+* If a date is provided, filters and shows appointments only for that specific date.
+* The date must be in the format `dd-MM-yyyy` e.g, `12-03-2026` refers to 12th March 2026.
+
+Examples:
+
+* `lsapt d/12-03-2026` lists appointments scheduled on 12th March 2026.
+* `lsapt` lists all appointments for all patients.
 
 ### Deleting an appointment : `dapt`
 
-Deletes an appointment for the specified patient in DoctorWho.
+Deletes the appointment of the patient identified by the index number used in the displayed patient list.
 
-Format: `dapt PATIENT_NUMBER`
+Format: `dapt PATIENT_INDEX`
 
-* Deletes the appointment for the patient at the specified `PATIENT_NUMBER`.
-* The `PATIENT_NUMBER` refers to the index number shown in the displayed patient list.
-* The `PATIENT_NUMBER` **must be a positive integer** 1, 2, 3, …​
+* Deletes the appointment for the patient at the specified `PATIENT_INDEX`.
+* The `PATIENT_INDEX` refers to the index number shown in the displayed patient list.
+* The `PATIENT_INDEX` **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 
-* `list` followed by `dapt 2` deletes the appointment for the 2nd patient in the displayed patient list.
+* `list` followed by `dapt 1` deletes the appointment for the 1st patient in the displayed patient list.
+
+### Listing all appointments : `lsapt`
+
+Shows all appointments across all patients, sorted by date-time in ascending order, to give a daily schedule view.
+
+Format: `lsapt [d/DATE]`
+
+* Lists all scheduled appointments when no date is provided.
+* If `d/DATE` is provided, only appointments on that date will be shown, and listed from earliest to latest.
+* `DATE` must be in the format `dd-MM-yyyy` e.g., `14-03-2026` refers to 14th March 2026.
+
+Examples:
+
+* `lsapt` returns all appointments across all patients, sorted by date-time ascending.
+* `lsapt d/14-03-2026` returns all appointments on 14th March 2026.
 
 ### Clearing all entries : `clear`
 
@@ -302,13 +342,17 @@ the data of your previous DoctorWho home folder.
 
 ## Glossary
 
+* Allergy: A hypersensitivity to a substance that causes the body to react with an immune response.
 * CLI: Command Line Interface. A text-based interface where users interact with a program by typing commands.
+* Command: An instruction given to a computer program to perform a specific task.
 * GUI: Graphical User Interface. A visual-based interface where users interact with a program by interacting with
   windows, icons and menus.
+* Index: A number that refers to the position of a patient in the displayed list.
 * Java: The programming language used to implement this application.
 * JSON: JavaScript Object Notation. A lightweight, text-based data interchange format, easily parsable by machines.
-* JSON linter: A tool that checks and enforces the correct syntax, structure, and style of JSON data.
+* Keyword: A word or a phrase that is used to search for a patient.
+* Medical Condition: A health problem that requires ongoing management.
+* NRIC: National Registration Identity Card. A unique identification number assigned to citizens and permanent residents.
 * Parameters: Inputs provided to a command. A command may have zero or more parameters depending on its functionality.
 * Patient: A person receiving medical care whose information and appointments are managed within DoctorWho.
-* Trailing commas: A comma placed at the end of a list of JSON entries before the closing bracket.
 * UTF-8: The standard for how Unicode numbers are translated into binary numbers to be stored in the computer.

@@ -10,14 +10,14 @@ UniqueTagList -[hidden]down- UniquePatientList
 UniqueTagList -[hidden]down- UniquePatientList
 
 UniqueTagList -right-> "*" Tag
-UniquePatientList -right-> Patient
+UniquePatientList -right-> "*" Patient
 
 Patient -up-> "*" Tag
 
-Patient *--> Name
-Patient *--> Phone
-Patient *--> Email
-Patient *--> Address
+Patient *--> "1" Name
+Patient *--> "1" Phone
+Patient *--> "1" Email
+Patient *--> "1" Address
 Patient *--> "0..1" Appointment
 
 Allergy -left-|> Tag

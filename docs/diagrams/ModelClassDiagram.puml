@@ -40,10 +40,10 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePatientList
 UniquePatientList --> "~* all" Patient
-Patient *--> Name
-Patient *--> Phone
-Patient *--> Email
-Patient *--> Address
+Patient *--> "1" Name
+Patient *--> "1" Phone
+Patient *--> "1" Email
+Patient *--> "1" Address
 Patient *--> "0..1" Appointment
 Patient *--> "*" Tag
 
