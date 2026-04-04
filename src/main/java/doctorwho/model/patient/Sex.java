@@ -11,7 +11,7 @@ public class Sex {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Sex should be M (male), F (female), or O (other), and it is case-insensitive.";
-    public static final String VALIDATION_REGEX = "[mMfFoO]";
+    public static final String VALIDATION_REGEX = "[mMfF]";
     public final String value;
 
     /**
