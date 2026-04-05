@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-Do you prefer typing information than having to click on multiple things? DoctorWho is for you!
+Do you prefer typing information to having to click on multiple things? DoctorWho is for you!
 
 DoctorWho is a **desktop app for managing patient information and appointments, optimized for use via a Command Line
 Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, DoctorWho
