@@ -32,7 +32,7 @@ public class ListAppointmentCommandParser implements Parser<ListAppointmentComma
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_APPOINTMENT_DATE);
 
         if (argMultimap.getValue(PREFIX_APPOINTMENT_DATE).isPresent()) {
-            LocalDate appointmentDate = ParserUtil.parseAppointmentDate(
+            LocalDate appointmentDate = ParserUtil.parseDate(
                     argMultimap.getValue(PREFIX_APPOINTMENT_DATE).get());
             return new ListAppointmentCommand(appointmentDate);
         }

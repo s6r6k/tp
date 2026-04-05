@@ -280,31 +280,31 @@ public class ParserUtilTest {
 
     @Test
     public void parseAppointmentDate_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAppointmentDate(null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDate(null));
     }
 
     @Test
     public void parseAppointmentDate_invalidFormat_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_DATE_FORMAT, () ->
-            ParserUtil.parseAppointmentDate(INVALID_APPOINTMENT_DATE));
+            ParserUtil.parseDate(INVALID_APPOINTMENT_DATE));
     }
 
     @Test
     public void parseAppointmentDate_nonLeapDate_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_DATE, () ->
-            ParserUtil.parseAppointmentDate(INVALID_APPOINTMENT_DATE_NON_LEAP));
+            ParserUtil.parseDate(INVALID_APPOINTMENT_DATE_NON_LEAP));
     }
 
     @Test
     public void parseAppointmentDate_validValueWithoutWhitespace_returnsLocalDate() throws Exception {
         LocalDate expectedDate = LocalDate.of(2026, 3, 12);
-        assertEquals(expectedDate, ParserUtil.parseAppointmentDate(VALID_APPOINTMENT_DATE));
+        assertEquals(expectedDate, ParserUtil.parseDate(VALID_APPOINTMENT_DATE));
     }
 
     @Test
     public void parseAppointmentDate_validValueWithWhitespace_returnsTrimmedLocalDate() throws Exception {
         String dateWithWhitespace = WHITESPACE + VALID_APPOINTMENT_DATE + WHITESPACE;
         LocalDate expectedDate = LocalDate.of(2026, 3, 12);
-        assertEquals(expectedDate, ParserUtil.parseAppointmentDate(dateWithWhitespace));
+        assertEquals(expectedDate, ParserUtil.parseDate(dateWithWhitespace));
     }
 }

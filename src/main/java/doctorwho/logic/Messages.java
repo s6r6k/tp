@@ -41,6 +41,8 @@ public class Messages {
                 .append(patient.getNric())
                 .append("; Sex: ")
                 .append(patient.getSex())
+                .append("; DOB: ")
+                .append(patient.getDateOfBirth())
                 .append("; Phone: ")
                 .append(patient.getPhone())
                 .append("; Email: ")

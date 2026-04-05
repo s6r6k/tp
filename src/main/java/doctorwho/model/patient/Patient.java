@@ -25,6 +25,7 @@ public class Patient {
     private final Name name;
     private final Nric nric;
     private final Sex sex;
+    private final DateOfBirth dob;
     private final Phone phone;
     private final Email email;
 
@@ -36,12 +37,12 @@ public class Patient {
     /**
      * Every field must be present and not null.
      */
-    public Patient(Name name, Nric nric, Sex sex, Phone phone, Email email, Address address, Set<Tag> tags,
+    public Patient(Name name, Nric nric, Sex sex, DateOfBirth dob, Phone phone, Email email, Address address, Set<Tag> tags,
                    Appointment appointment) {
-        requireAllNonNull(name, nric, sex, phone, email, address, tags);
+        requireAllNonNull(name, nric, phone, email, address, tags);
         this.name = name;
         this.nric = nric;
-        this.sex = sex;
+        this.dob = dob;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -49,8 +50,8 @@ public class Patient {
         this.appointment = appointment;
     }
 
-    public Patient(Name name, Nric nric, Sex sex, Phone phone, Email email, Address address, Set<Tag> tags) {
-        this(name, nric, sex, phone, email, address, tags, null);
+    public Patient(Name name, Nric nric, Sex sex, DateOfBirth dob, Phone phone, Email email, Address address, Set<Tag> tags) {
+        this(name, nric, sex, dob, phone, email, address, tags, null);
     }
 
     public Name getName() {
@@ -61,11 +62,13 @@ public class Patient {
         return phone;
     }
 
-    public Nric getNric() {
-        return nric;
-    }
+    public Nric getNric() { return nric; }
 
-    public Sex getSex() {return sex;}
+    public Sex getSex() { return sex; }
+
+    public DateOfBirth getDateOfBirth() {
+        return dob;
+    }
 
     public Email getEmail() {
         return email;
@@ -154,8 +157,9 @@ public class Patient {
 
         Patient otherPatient = (Patient) other;
         return name.equals(otherPatient.name)
-            && nric.equals(otherPatient.nric)
-            && sex.equals(otherPatient.sex)
+                && nric.equals(otherPatient.nric)
+                && sex.equals(otherPatient.sex)
+                && dob.equals(otherPatient.dob)
                 && phone.equals(otherPatient.phone)
                 && email.equals(otherPatient.email)
                 && address.equals(otherPatient.address)
@@ -165,7 +169,7 @@ public class Patient {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, nric, sex, phone, email, address, tags);
+        return Objects.hash(name, nric, sex, dob, phone, email, address, tags);
     }
 
     @Override
@@ -174,6 +178,7 @@ public class Patient {
                 .add("name", name)
                 .add("nric", nric)
                 .add("sex", sex)
+                .add("dob", dob)
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)

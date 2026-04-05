@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import doctorwho.commons.exceptions.IllegalValueException;
 import doctorwho.model.patient.Address;
 import doctorwho.model.patient.Appointment;
+import doctorwho.model.patient.DateOfBirth;
 import doctorwho.model.patient.Email;
 import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Nric;
@@ -30,6 +31,7 @@ class JsonAdaptedPatient {
     private final String name;
     private final String nric;
     private final String sex;
+    private final String dob;
     private final String phone;
     private final String email;
     private final String address;
@@ -42,10 +44,13 @@ class JsonAdaptedPatient {
      * Constructs a {@code JsonAdaptedPatient} with the given patient details.
      */
     @JsonCreator
-    public JsonAdaptedPatient(@JsonProperty("name") String name, @JsonProperty("nric") String nric,
+    public JsonAdaptedPatient(@JsonProperty("name") String name,
+                              @JsonProperty("nric") String nric,
                               @JsonProperty("sex") String sex,
+                              @JsonProperty("dob") String dob,
                               @JsonProperty("phone") String phone,
-                              @JsonProperty("email") String email, @JsonProperty("address") String address,
+                              @JsonProperty("email") String email,
+                              @JsonProperty("address") String address,
                               @JsonProperty("tags") List<JsonAdaptedTag> tags,
                               @JsonProperty("appointmentStart") String appointmentStart,
                               @JsonProperty("appointmentDuration") Integer appointmentDuration,
@@ -53,6 +58,7 @@ class JsonAdaptedPatient {
         this.name = name;
         this.nric = nric;
         this.sex = sex;
+        this.dob = dob;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -71,6 +77,7 @@ class JsonAdaptedPatient {
         name = source.getName().fullName;
         nric = source.getNric().value;
         sex = source.getSex().value;
+        dob = source.getDateOfBirth().toString();
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
@@ -121,6 +128,15 @@ class JsonAdaptedPatient {
         }
         final Sex modelSex = new Sex(sex);
 
+        if (dob == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    DateOfBirth.class.getSimpleName()));
+        }
+        if (!DateOfBirth.isValidDateOfBirth(dob)) {
+            throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        }
+        final DateOfBirth modelDob = new DateOfBirth(dob);
+
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
@@ -164,7 +180,8 @@ class JsonAdaptedPatient {
             modelAppointment = new Appointment(appointmentStart, appointmentDuration, appointmentNote);
         }
 
-        return new Patient(modelName, modelNric, modelSex, modelPhone, modelEmail, modelAddress, modelTags, modelAppointment);
+        return new Patient(modelName, modelNric, modelSex, modelDob, modelPhone,
+                modelEmail, modelAddress, modelTags, modelAppointment);
     }
 
 }

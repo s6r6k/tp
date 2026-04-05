@@ -660,3 +660,7 @@ testers are expected to do more *exploratory* testing.
    patient's name. However, this means that the stored patient name may not be a match their exact government name. We
    plan to implement apostrophe string enclosing to allow such special characters to be included in the name without
    conflicting with the special characters used for the argument prefixes.
+2. Include cross-checks between a patient's date of birth and NRIC. Currently, we don't check that the patient's birth
+   year matches their NRIC due to complexities and edge cases. Additionally, patients born before 1968 won't have their
+   birth year as the first two digits of their NRIC, making this impossible in certain cases. We plan to implement a
+   best-effort check that will flag possible mismatches.

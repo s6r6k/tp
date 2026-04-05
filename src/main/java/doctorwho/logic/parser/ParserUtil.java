@@ -14,6 +14,7 @@ import doctorwho.commons.core.index.Index;
 import doctorwho.commons.util.StringUtil;
 import doctorwho.logic.parser.exceptions.ParseException;
 import doctorwho.model.patient.Address;
+import doctorwho.model.patient.DateOfBirth;
 import doctorwho.model.patient.Email;
 import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Nric;
@@ -34,9 +35,9 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Date should be in 'dd-MM-yyyy' format.";
     public static final String MESSAGE_INVALID_DATE = "Date is invalid.";
 
-    private static final DateTimeFormatter APPOINTMENT_DATE_FORMATTER = DateTimeFormatter
-        .ofPattern("dd-MM-uuuu")
-        .withResolverStyle(ResolverStyle.STRICT);
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter
+            .ofPattern("dd-MM-uuuu")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -95,6 +96,21 @@ public class ParserUtil {
             throw new ParseException(Sex.MESSAGE_CONSTRAINTS);
         }
         return new Sex(trimmedSex);
+    }
+
+    /**
+     * Parses a {@code String dob} into a {@code DateOfBirth}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dob} is invalid.
+     */
+    public static DateOfBirth parseDateOfBirth(String dob) throws ParseException {
+        requireNonNull(dob);
+        String trimmedDob = dob.trim();
+        if (!DateOfBirth.isValidDateOfBirth(trimmedDob)) {
+            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        }
+        return new DateOfBirth(trimmedDob);
     }
 
     /**
@@ -200,7 +216,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the specified date is invalid.
      */
-    public static LocalDate parseAppointmentDate(String date) throws ParseException {
+    public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
 
@@ -209,7 +225,7 @@ public class ParserUtil {
         }
 
         try {
-            return LocalDate.parse(trimmedDate, APPOINTMENT_DATE_FORMATTER);
+            return LocalDate.parse(trimmedDate, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new ParseException(MESSAGE_INVALID_DATE, e);
         }

@@ -22,7 +22,7 @@
 ## MVP Features
 
 1. **Add Patient**
-   Add a new patient record with details such as name, phone, email, address, optional medical conditions, and
+   Add a new patient record with details such as name, NRIC, date of birth, phone, email, address, optional medical conditions, and
    allergies.
 
 2. **Delete Patient**
