@@ -42,6 +42,7 @@ public class Patient {
         requireAllNonNull(name, nric, phone, email, address, tags);
         this.name = name;
         this.nric = nric;
+        this.sex = sex;
         this.dob = dob;
         this.phone = phone;
         this.email = email;
