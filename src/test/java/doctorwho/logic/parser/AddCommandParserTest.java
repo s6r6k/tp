@@ -10,6 +10,8 @@ import static doctorwho.logic.commands.CommandTestUtil.CONDITION_DESC_DIABETES;
 import static doctorwho.logic.commands.CommandTestUtil.CONDITION_DESC_HYPERTENSION;
 import static doctorwho.logic.commands.CommandTestUtil.DOB_DESC_AMY;
 import static doctorwho.logic.commands.CommandTestUtil.DOB_DESC_BOB;
+import static doctorwho.logic.commands.CommandTestUtil.SEX_DESC_AMY;
+import static doctorwho.logic.commands.CommandTestUtil.SEX_DESC_BOB;
 import static doctorwho.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static doctorwho.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static doctorwho.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
@@ -20,6 +22,7 @@ import static doctorwho.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static doctorwho.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static doctorwho.logic.commands.CommandTestUtil.INVALID_NRIC_DESC;
 import static doctorwho.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static doctorwho.logic.commands.CommandTestUtil.INVALID_SEX_DESC;
 import static doctorwho.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static doctorwho.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static doctorwho.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
@@ -39,12 +42,14 @@ import static doctorwho.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static doctorwho.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static doctorwho.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static doctorwho.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static doctorwho.logic.commands.CommandTestUtil.VALID_SEX_BOB;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_DOB;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_NAME;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_NRIC;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_PHONE;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_SEX;
 import static doctorwho.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static doctorwho.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static doctorwho.testutil.TypicalPatients.AMY;
@@ -72,15 +77,15 @@ public class AddCommandParserTest {
         // test with allergy only
         Patient expectedPatient = new PatientBuilder(BOB).withAllergies(VALID_ALLERGY_IBUPROFEN)
                 .withConditions().build();
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB
-                        + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + ALLERGY_DESC_IBUPROFEN,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + NRIC_DESC_BOB + SEX_DESC_BOB
+                + DOB_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + ALLERGY_DESC_IBUPROFEN,
                 new AddCommand(expectedPatient));
 
         // test with multiple allergies
         Patient expectedPatientMultipleAllergies = new PatientBuilder(BOB)
                 .withAllergies(VALID_ALLERGY_ASPIRIN, VALID_ALLERGY_IBUPROFEN).withConditions().build();
         assertParseSuccess(parser,
-                NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                NAME_DESC_BOB + NRIC_DESC_BOB + SEX_DESC_BOB + DOB_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + ADDRESS_DESC_BOB + ALLERGY_DESC_ASPIRIN + ALLERGY_DESC_IBUPROFEN,
                 new AddCommand(expectedPatientMultipleAllergies));
 
@@ -88,7 +93,7 @@ public class AddCommandParserTest {
         Patient expectedPatientConditionOnly = new PatientBuilder(BOB).withAllergies()
                 .withConditions(VALID_CONDITION_HYPERTENSION).build();
         assertParseSuccess(parser,
-                NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                NAME_DESC_BOB + NRIC_DESC_BOB + SEX_DESC_BOB + DOB_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + ADDRESS_DESC_BOB + CONDITION_DESC_HYPERTENSION,
                 new AddCommand(expectedPatientConditionOnly));
 
@@ -96,7 +101,7 @@ public class AddCommandParserTest {
         Patient expectedPatientMultipleConditions = new PatientBuilder(BOB).withAllergies()
                 .withConditions(VALID_CONDITION_HYPERTENSION, VALID_CONDITION_DIABETES).build();
         assertParseSuccess(parser,
-                NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                NAME_DESC_BOB + NRIC_DESC_BOB + SEX_DESC_BOB + DOB_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + ADDRESS_DESC_BOB + CONDITION_DESC_HYPERTENSION + CONDITION_DESC_DIABETES,
                 new AddCommand(expectedPatientMultipleConditions));
 
@@ -104,15 +109,15 @@ public class AddCommandParserTest {
         Patient expectedPatientWithBoth = new PatientBuilder(BOB).withAllergies(VALID_ALLERGY_IBUPROFEN)
                 .withConditions(VALID_CONDITION_HYPERTENSION).build();
         assertParseSuccess(parser,
-                NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                NAME_DESC_BOB + NRIC_DESC_BOB + SEX_DESC_BOB + DOB_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + ADDRESS_DESC_BOB + ALLERGY_DESC_IBUPROFEN + CONDITION_DESC_HYPERTENSION,
                 new AddCommand(expectedPatientWithBoth));
     }
 
     @Test
     public void parse_repeatedNonTagValue_failure() {
-        String validExpectedpatientstring = NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + ALLERGY_DESC_ASPIRIN;
+        String validExpectedpatientstring = NAME_DESC_BOB + NRIC_DESC_BOB + SEX_DESC_BOB + DOB_DESC_BOB
+            + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + ALLERGY_DESC_ASPIRIN;
 
         // multiple names
         assertParseFailure(parser, NAME_DESC_AMY + validExpectedpatientstring,
@@ -125,6 +130,10 @@ public class AddCommandParserTest {
         // multiple nrics
         assertParseFailure(parser, NRIC_DESC_AMY + validExpectedpatientstring,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NRIC));
+
+        // multiple sex
+        assertParseFailure(parser, SEX_DESC_AMY + validExpectedpatientstring,
+            Messages.getErrorMessageForDuplicatePrefixes(PREFIX_SEX));
 
         // multiple dobs
         assertParseFailure(parser, DOB_DESC_AMY + validExpectedpatientstring,
@@ -142,7 +151,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser,
                 validExpectedpatientstring + PHONE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY
                         + ADDRESS_DESC_AMY + validExpectedpatientstring,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_NRIC, PREFIX_DOB,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_NRIC, PREFIX_SEX, PREFIX_DOB,
                         PREFIX_ADDRESS, PREFIX_EMAIL, PREFIX_PHONE));
 
         // invalid value followed by valid value
