@@ -12,7 +12,7 @@ title: Developer Guide
 
 * AddressBook-Level3 (AB3): The original source code for this application was adapted from the
 [AddressBook-Level3](https://github.com/se-edu/addressbook-level3)
- project created by the SE-EDU initiative. 
+ project created by the SE-EDU initiative.
 * NRIC Checksum: Introduce documentation for NRIC checksum. [Link](https://userapps.support.sap.com/sap/support/knowledge/en/2572734)
 * JavaFX: Used for the Graphical User Interface (GUI). [Link](https://openjfx.io/)
 * JUnit5: Used for the unit testing framework. [Link](https://junit.org/junit5/)
