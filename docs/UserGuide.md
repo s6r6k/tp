@@ -228,10 +228,10 @@ Examples:
 
 Adds an appointment to the patient identified by the index number used in the displayed patient list. Supply the start date and time, duration and an optional note. Existing appointment will be overwritten by the new appointment.
 
-Format: `apt INDEX d/DATETIME dur/DURATION [note/NOTE]`
+Format: `apt PATIENT_NUMBER d/DATETIME dur/DURATION [note/NOTE]`
 
-* Creates and adds an appointment for the patient at the specified `INDEX`.
-* The `INDEX` **must be a positive integer** 1, 2, 3, …​
+* Creates and adds an appointment for the patient at the specified `PATIENT_NUMBER`.
+* The `PATIENT_NUMBER` **must be a positive integer** 1, 2, 3, …​
 * The date and time must be in the format `dd-MM-yyyy HH:mm` e.g, `12-03-2026 14:00` refers to 12th March 2026, 14:00.
 * The duration **must be a positive integer** in **minutes**.
 * The note is optional.
@@ -261,11 +261,11 @@ Examples:
 
 Deletes the appointment of the patient identified by the index number used in the displayed patient list.
 
-Format: `dapt PATIENT_INDEX`
+Format: `dapt PATIENT_NUMBER`
 
-* Deletes the appointment for the patient at the specified `PATIENT_INDEX`.
-* The `PATIENT_INDEX` refers to the index number shown in the displayed patient list.
-* The `PATIENT_INDEX` **must be a positive integer** 1, 2, 3, …​
+* Deletes the appointment for the patient at the specified `PATIENT_NUMBER`.
+* The `PATIENT_NUMBER` refers to the index number shown in the displayed patient list.
+* The `PATIENT_NUMBER` **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 

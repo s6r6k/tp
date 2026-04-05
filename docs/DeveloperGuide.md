@@ -361,7 +361,7 @@ The proposed data archiving feature allows doctors to move inactive or deceased 
 
 The archiving mechanism will be facilitated by adding an `ArchiveBook` to the `Model`, functioning similarly to the `AddressBook`.
 
-* An `archive PATIENT_INDEX` command will be added.
+* An `archive PATIENT_NUMBER` command will be added.
 * `Model` will be extended with `Model#archivePatient(Patient)` and `Model#unarchivePatient(Patient)`.
 * When a patient is archived, they are removed from the active `UniquePatientList` and added to the `ArchiveBook`.
 * The `Storage` component will be updated to save the `ArchiveBook` to a separate `data/archive.json` file.
@@ -499,7 +499,7 @@ Extensions
 
 1. Doctor requests to list all patients.
 2. DoctorWho displays the list of patients.
-3. Doctor specifies the INDEX of the patient to delete.
+3. Doctor specifies the PATIENT_NUMBER of the patient to delete.
 4. DoctorWho removes the specified patient from the system.
 5. DoctorWho removes all appointments associated with that patient.
 6. DoctorWho displays a confirmation message indicating the patient has been deleted.
@@ -507,8 +507,8 @@ Extensions
 
 **Extensions**
 
-* 3a. The specified INDEX is invalid.
-    * 3a1.DoctorWho displays an error message indicating that the index is invalid.
+* 3a. The specified PATIENT_NUMBER is invalid.
+    * 3a1.DoctorWho displays an error message indicating that the PATIENT_NUMBER is invalid.
       <br>Use case ends.
 
 **Use Case 07: List Appointments**
