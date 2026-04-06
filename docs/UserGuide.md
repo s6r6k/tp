@@ -150,12 +150,12 @@ replacements you can use if you encounter these special characters:
 
 </div>
 
-**Note (NRIC validation):**
+**Note (NRIC validation):**<br/>
 DoctorWho prevents invalid NRIC/FIN entries. For both `add` and `edit`, the `ic/` value must use a valid entry; otherwise the command is rejected. <br/>
   NRIC is how the program checks if an entry already exists. This allows for multiple same names.
 
-**Sex**
-Limited to only male `x/M` or female `F`, though edits are allowed.
+**Sex:**<br/>
+Limited to only male `x/M` or female `x/F`, though edits are allowed.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A patient can have any number of allergies or medical conditions (including 0)
