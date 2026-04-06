@@ -34,6 +34,7 @@ import doctorwho.model.tag.Tag;
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_PHONE_TOO_LONG = "1234567890123456"; // 16 digits
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_ALLERGY = "#aspirin";
@@ -177,6 +178,11 @@ public class ParserUtilTest {
     @Test
     public void parsePhone_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    }
+
+    @Test
+    public void parsePhone_tooLongValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE_TOO_LONG));
     }
 
     @Test
@@ -334,6 +340,13 @@ public class ParserUtilTest {
     public void parseConditions_collectionWithInvalidTags_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseConditions(
             Arrays.asList(VALID_CONDITION_2, INVALID_ALLERGY)));
+    }
+
+    @Test
+    public void parseCondition_invalidValue_throwsParseException() {
+        List<String> conditionList = new ArrayList<>();
+        conditionList.add(INVALID_CONDITION);
+        assertThrows(ParseException.class, () -> ParserUtil.parseConditions(conditionList));
     }
 
     @Test

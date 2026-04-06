@@ -70,6 +70,7 @@ public class CommandTestUtil {
     public static final String INVALID_SEX_DESC = " " + PREFIX_SEX + "X"; // 'X' not allowed, must be M or F
     public static final String INVALID_DOB_DESC = " " + PREFIX_DOB + "2003-02-04"; // yyyy-mm-dd
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_PHONE_DESC_TOO_LONG = " " + PREFIX_PHONE + "1234567890123456";
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_ALLERGY_DESC = " "

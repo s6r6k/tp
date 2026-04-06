@@ -24,6 +24,7 @@ import doctorwho.model.patient.Sex;
 public class JsonAdaptedPatientTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_PHONE_TOO_LONG = "1234567890123456";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_NRIC = "1234567A";
@@ -130,6 +131,16 @@ public class JsonAdaptedPatientTest {
         JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB,
                 INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
+        String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidPhoneTooLong_throwsIllegalValueException() {
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(
+            VALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB,
+            INVALID_PHONE_TOO_LONG, VALID_EMAIL, VALID_ADDRESS,
+            VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
     }

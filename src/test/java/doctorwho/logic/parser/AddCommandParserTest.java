@@ -20,6 +20,7 @@ import static doctorwho.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static doctorwho.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static doctorwho.logic.commands.CommandTestUtil.INVALID_NRIC_DESC;
 import static doctorwho.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static doctorwho.logic.commands.CommandTestUtil.INVALID_PHONE_DESC_TOO_LONG;
 import static doctorwho.logic.commands.CommandTestUtil.INVALID_SEX_DESC;
 import static doctorwho.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static doctorwho.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -181,6 +182,11 @@ public class AddCommandParserTest {
         // invalid phone
         assertParseFailure(parser, INVALID_PHONE_DESC + validExpectedpatientstring,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
+
+        // invalid phone — too long
+        assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + SEX_DESC_BOB + DOB_DESC_BOB
+                + INVALID_PHONE_DESC_TOO_LONG + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
+            Phone.MESSAGE_CONSTRAINTS);
 
         // invalid address
         assertParseFailure(parser, INVALID_ADDRESS_DESC + validExpectedpatientstring,
