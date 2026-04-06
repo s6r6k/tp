@@ -130,10 +130,7 @@ Format: `help`
 
 Adds a patient to DoctorWho.
 
-Format: `add n/NAME ic/NRIC dob/DOB p/PHONE_NUMBER e/EMAIL a/ADDRESS [al/ALLERGY] [mc/CONDITION]…​`
-
-**Note (NRIC validation):**
-DoctorWho prevents invalid NRIC/FIN entries. For both `add` and `edit`, the `ic/` value must use a valid prefix and checksum; otherwise the command is rejected.
+Format: `add n/NAME ic/NRIC x/SEX dob/DOB p/PHONE_NUMBER e/EMAIL a/ADDRESS [al/ALLERGY] [mc/CONDITION]…​`
 
 DoctorWho currently accepts the following special characters in the patient's name:
 
@@ -152,6 +149,9 @@ replacements you can use if you encounter these special characters:
 | Slash (/)  | Ali s/o Ahmad   | Ali so Ahmad<br>Ali SO Ahmad   | [Planned](DeveloperGuide.md#appendix-planned-enhancements) |
 
 </div>
+
+**Note (NRIC validation):**
+DoctorWho prevents invalid NRIC/FIN entries. For both `add` and `edit`, the `ic/` value must use a valid prefix and checksum; otherwise the command is rejected.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A patient can have any number of allergies or medical conditions (including 0)
