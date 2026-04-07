@@ -8,6 +8,7 @@ import static doctorwho.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_NAME;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_NRIC;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_PHONE;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_SEX;
 
 import java.util.Set;
 
@@ -37,6 +38,7 @@ public class PatientUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + patient.getName().fullName + " ");
         sb.append(PREFIX_NRIC + patient.getNric().value + " ");
+        sb.append(PREFIX_SEX + patient.getSex().value + " ");
         sb.append(PREFIX_DOB + patient.getDateOfBirth().toString() + " ");
         sb.append(PREFIX_PHONE + patient.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + patient.getEmail().value + " ");
@@ -58,6 +60,7 @@ public class PatientUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getNric().ifPresent(nric -> sb.append(PREFIX_NRIC).append(nric.value).append(" "));
+        descriptor.getSex().ifPresent(sex -> sb.append(PREFIX_SEX).append(sex.value).append(" "));
         descriptor.getDateOfBirth().ifPresent(
                 dob -> sb.append(PREFIX_DOB).append(dob.toString()).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

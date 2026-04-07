@@ -24,6 +24,8 @@ public class PatientDetailPanel extends UiPart<Region> {
     @FXML
     private Label nric;
     @FXML
+    private Label sex;
+    @FXML
     private Label age;
     @FXML
     private Label phone;
@@ -65,6 +67,8 @@ public class PatientDetailPanel extends UiPart<Region> {
 
         name.setText(patient.getName().fullName);
         nric.setText(patient.getNric().value);
+        String sexDisplay = patient.getSex().value.equals("F") ? "Female" : "Male";
+        sex.setText(sexDisplay);
         age.setText(patient.getDateOfBirth() + " (" + patient.getDateOfBirth().getAge() + " old)");
         phone.setText(patient.getPhone().value);
         email.setText(patient.getEmail().value);

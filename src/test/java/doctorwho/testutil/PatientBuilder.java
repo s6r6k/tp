@@ -13,6 +13,7 @@ import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Nric;
 import doctorwho.model.patient.Patient;
 import doctorwho.model.patient.Phone;
+import doctorwho.model.patient.Sex;
 import doctorwho.model.tag.Allergy;
 import doctorwho.model.tag.Condition;
 import doctorwho.model.tag.Tag;
@@ -24,6 +25,7 @@ public class PatientBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_NRIC = "S7654321F";
+    public static final String DEFAULT_SEX = "F";
     public static final String DEFAULT_DOB = "20-04-2003";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
@@ -31,6 +33,7 @@ public class PatientBuilder {
 
     private Name name;
     private Nric nric;
+    private Sex sex;
     private DateOfBirth dob;
     private Phone phone;
     private Email email;
@@ -44,6 +47,7 @@ public class PatientBuilder {
     public PatientBuilder() {
         name = new Name(DEFAULT_NAME);
         nric = new Nric(DEFAULT_NRIC);
+        sex = new Sex(DEFAULT_SEX);
         dob = new DateOfBirth(DEFAULT_DOB);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
@@ -57,6 +61,7 @@ public class PatientBuilder {
     public PatientBuilder(Patient patientToCopy) {
         name = patientToCopy.getName();
         nric = patientToCopy.getNric();
+        sex = patientToCopy.getSex();
         dob = patientToCopy.getDateOfBirth();
         phone = patientToCopy.getPhone();
         email = patientToCopy.getEmail();
@@ -86,6 +91,14 @@ public class PatientBuilder {
      */
     public PatientBuilder withNric(String nric) {
         this.nric = new Nric(nric);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Sex} of the {@code Patient} that we are building.
+     */
+    public PatientBuilder withSex(String sex) {
+        this.sex = new Sex(sex);
         return this;
     }
 
@@ -148,7 +161,7 @@ public class PatientBuilder {
     }
 
     public Patient build() {
-        return new Patient(name, nric, dob, phone, email, address, tags, appointment);
+        return new Patient(name, nric, sex, dob, phone, email, address, tags, appointment);
     }
 
 }

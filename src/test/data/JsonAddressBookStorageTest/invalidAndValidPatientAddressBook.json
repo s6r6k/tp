@@ -3,6 +3,7 @@
     {
       "name": "Valid Patient",
       "nric": "S1234567D",
+      "sex": "F",
       "dob": "01-04-2003",
       "phone": "9482424",
       "email": "hans@example.com",
@@ -11,6 +12,7 @@
     {
       "name": "Patient With Invalid Phone Field",
       "nric": "S2345678H",
+      "sex": "F",
       "dob": "02-04-2003",
       "phone": "948asdf2424",
       "email": "hans@example.com",

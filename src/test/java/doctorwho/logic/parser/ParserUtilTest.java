@@ -21,9 +21,12 @@ import org.junit.jupiter.api.Test;
 
 import doctorwho.logic.parser.exceptions.ParseException;
 import doctorwho.model.patient.Address;
+import doctorwho.model.patient.DateOfBirth;
 import doctorwho.model.patient.Email;
 import doctorwho.model.patient.Name;
+import doctorwho.model.patient.Nric;
 import doctorwho.model.patient.Phone;
+import doctorwho.model.patient.Sex;
 import doctorwho.model.tag.Allergy;
 import doctorwho.model.tag.Condition;
 import doctorwho.model.tag.Tag;
@@ -31,20 +34,27 @@ import doctorwho.model.tag.Tag;
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_PHONE_TOO_LONG = "1234567890123456"; // 16 digits
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_ALLERGY = "#aspirin";
     private static final String INVALID_CONDITION = "#diabetes";
     private static final String INVALID_APPOINTMENT_DATE = "2026-03-12";
     private static final String INVALID_APPOINTMENT_DATE_NON_LEAP = "29-02-2026";
+    private static final String INVALID_SEX = "X"; // 'X' not allowed
+    private static final String INVALID_NRIC = "1234567A"; // missing prefix letter
+    private static final String INVALID_DOB = "2003-02-04"; // wrong format yyyy-mm-dd
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
+    private static final String VALID_SEX = "M";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_ALLERGY_1 = VALID_ALLERGY_ASPIRIN;
     private static final String VALID_CONDITION_2 = "diabetes";
     private static final String VALID_APPOINTMENT_DATE = "12-03-2026";
+    private static final String VALID_NRIC = "S1234567D";
+    private static final String VALID_DOB = "04-02-2003";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -92,6 +102,75 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseSex_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSex((String) null));
+    }
+
+    @Test
+    public void parseSex_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSex(INVALID_SEX));
+    }
+
+    @Test
+    public void parseSex_validValueWithoutWhitespace_returnsSex() throws Exception {
+        Sex expectedSex = new Sex(VALID_SEX);
+        assertEquals(expectedSex, ParserUtil.parseSex(VALID_SEX));
+    }
+
+    @Test
+    public void parseSex_validValueWithWhitespace_returnsTrimmedSex() throws Exception {
+        String sexWithWhitespace = WHITESPACE + VALID_SEX + WHITESPACE;
+        Sex expectedSex = new Sex(VALID_SEX);
+        assertEquals(expectedSex, ParserUtil.parseSex(sexWithWhitespace));
+    }
+
+    @Test
+    public void parseNric_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseNric((String) null));
+    }
+
+    @Test
+    public void parseNric_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNric(INVALID_NRIC));
+    }
+
+    @Test
+    public void parseNric_validValueWithoutWhitespace_returnsNric() throws Exception {
+        Nric expectedNric = new Nric(VALID_NRIC);
+        assertEquals(expectedNric, ParserUtil.parseNric(VALID_NRIC));
+    }
+
+    @Test
+    public void parseNric_validValueWithWhitespace_returnsTrimmedNric() throws Exception {
+        String nricWithWhitespace = WHITESPACE + VALID_NRIC + WHITESPACE;
+        Nric expectedNric = new Nric(VALID_NRIC);
+        assertEquals(expectedNric, ParserUtil.parseNric(nricWithWhitespace));
+    }
+
+    @Test
+    public void parseDateOfBirth_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDateOfBirth((String) null));
+    }
+
+    @Test
+    public void parseDateOfBirth_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDateOfBirth(INVALID_DOB));
+    }
+
+    @Test
+    public void parseDateOfBirth_validValueWithoutWhitespace_returnsDateOfBirth() throws Exception {
+        DateOfBirth expectedDob = new DateOfBirth(VALID_DOB);
+        assertEquals(expectedDob, ParserUtil.parseDateOfBirth(VALID_DOB));
+    }
+
+    @Test
+    public void parseDateOfBirth_validValueWithWhitespace_returnsTrimmedDateOfBirth() throws Exception {
+        String dobWithWhitespace = WHITESPACE + VALID_DOB + WHITESPACE;
+        DateOfBirth expectedDob = new DateOfBirth(VALID_DOB);
+        assertEquals(expectedDob, ParserUtil.parseDateOfBirth(dobWithWhitespace));
+    }
+
+    @Test
     public void parsePhone_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
     }
@@ -99,6 +178,11 @@ public class ParserUtilTest {
     @Test
     public void parsePhone_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    }
+
+    @Test
+    public void parsePhone_tooLongValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE_TOO_LONG));
     }
 
     @Test
@@ -256,6 +340,13 @@ public class ParserUtilTest {
     public void parseConditions_collectionWithInvalidTags_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseConditions(
             Arrays.asList(VALID_CONDITION_2, INVALID_ALLERGY)));
+    }
+
+    @Test
+    public void parseCondition_invalidValue_throwsParseException() {
+        List<String> conditionList = new ArrayList<>();
+        conditionList.add(INVALID_CONDITION);
+        assertThrows(ParseException.class, () -> ParserUtil.parseConditions(conditionList));
     }
 
     @Test

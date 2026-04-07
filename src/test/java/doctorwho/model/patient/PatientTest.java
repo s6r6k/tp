@@ -10,6 +10,7 @@ import static doctorwho.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static doctorwho.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
 import static doctorwho.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static doctorwho.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static doctorwho.logic.commands.CommandTestUtil.VALID_SEX_BOB;
 import static doctorwho.testutil.Assert.assertThrows;
 import static doctorwho.testutil.TypicalPatients.ALICE;
 import static doctorwho.testutil.TypicalPatients.BOB;
@@ -86,6 +87,10 @@ public class PatientTest {
         editedAlice = new PatientBuilder(ALICE).withNric(VALID_NRIC_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
+        // different sex -> returns false
+        editedAlice = new PatientBuilder(ALICE).withSex(VALID_SEX_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
         // different dob -> returns false
         editedAlice = new PatientBuilder(ALICE).withDateOfBirth(VALID_DOB_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
@@ -129,6 +134,7 @@ public class PatientTest {
         String expected = Patient.class.getCanonicalName()
                 + "{name=" + ALICE.getName()
                 + ", nric=" + ALICE.getNric()
+                + ", sex=" + ALICE.getSex()
                 + ", dob=" + ALICE.getDateOfBirth()
                 + ", phone=" + ALICE.getPhone()
                 + ", email=" + ALICE.getEmail()

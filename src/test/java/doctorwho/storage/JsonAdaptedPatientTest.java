@@ -19,13 +19,16 @@ import doctorwho.model.patient.Email;
 import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Nric;
 import doctorwho.model.patient.Phone;
+import doctorwho.model.patient.Sex;
 
 public class JsonAdaptedPatientTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_PHONE_TOO_LONG = "1234567890123456";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_NRIC = "1234567A";
+    private static final String INVALID_SEX = "O";
     private static final String INVALID_DOB = "2003-02-03";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_APPT_START = "2026/03/10 14:00";
@@ -33,6 +36,7 @@ public class JsonAdaptedPatientTest {
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_NRIC = BENSON.getNric().toString();
+    private static final String VALID_SEX = BENSON.getSex().toString();
     private static final String VALID_DOB = BENSON.getDateOfBirth().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
@@ -52,7 +56,7 @@ public class JsonAdaptedPatientTest {
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(INVALID_NAME, VALID_NRIC, VALID_DOB,
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(INVALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB,
                 VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
@@ -61,7 +65,7 @@ public class JsonAdaptedPatientTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(null, VALID_NRIC, VALID_DOB,
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(null, VALID_NRIC, VALID_SEX, VALID_DOB,
                 VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
@@ -70,7 +74,7 @@ public class JsonAdaptedPatientTest {
 
     @Test
     public void toModelType_invalidNric_throwsIllegalValueException() {
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, INVALID_NRIC, VALID_DOB,
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, INVALID_NRIC, VALID_SEX, VALID_DOB,
                 VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = Nric.MESSAGE_CONSTRAINTS;
@@ -79,7 +83,7 @@ public class JsonAdaptedPatientTest {
 
     @Test
     public void toModelType_nullNric_throwsIllegalValueException() {
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, null, VALID_DOB,
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, null, VALID_SEX, VALID_DOB,
                 VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName());
@@ -87,8 +91,26 @@ public class JsonAdaptedPatientTest {
     }
 
     @Test
+    public void toModelType_invalidSex_throwsIllegalValueException() {
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, INVALID_SEX, VALID_DOB,
+            VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+            VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
+        String expectedMessage = Sex.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullSex_throwsIllegalValueException() {
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, null, VALID_DOB,
+            VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+            VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Sex.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
+    }
+
+    @Test
     public void toModelType_invalidDob_throwsIllegalValueException() {
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, INVALID_DOB,
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_SEX, INVALID_DOB,
                 VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = DateOfBirth.MESSAGE_CONSTRAINTS;
@@ -97,7 +119,7 @@ public class JsonAdaptedPatientTest {
 
     @Test
     public void toModelType_nullDob_throwsIllegalValueException() {
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, null,
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_SEX, null,
                 VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, DateOfBirth.class.getSimpleName());
@@ -106,7 +128,7 @@ public class JsonAdaptedPatientTest {
 
     @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_DOB,
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB,
                 INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
@@ -114,8 +136,18 @@ public class JsonAdaptedPatientTest {
     }
 
     @Test
+    public void toModelType_invalidPhoneTooLong_throwsIllegalValueException() {
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(
+            VALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB,
+            INVALID_PHONE_TOO_LONG, VALID_EMAIL, VALID_ADDRESS,
+            VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
+        String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
+    }
+
+    @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_DOB,
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB,
                 null, VALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
@@ -124,7 +156,7 @@ public class JsonAdaptedPatientTest {
 
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_DOB,
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB,
                 VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = Email.MESSAGE_CONSTRAINTS;
@@ -133,7 +165,7 @@ public class JsonAdaptedPatientTest {
 
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_DOB,
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB,
                 VALID_PHONE, null, VALID_ADDRESS,
                 VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
@@ -142,7 +174,7 @@ public class JsonAdaptedPatientTest {
 
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_DOB,
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB,
                 VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS,
                 VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = Address.MESSAGE_CONSTRAINTS;
@@ -151,7 +183,7 @@ public class JsonAdaptedPatientTest {
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_DOB,
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB,
                 VALID_PHONE, VALID_EMAIL, null,
                 VALID_TAGS, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
@@ -162,7 +194,7 @@ public class JsonAdaptedPatientTest {
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_DOB,
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB,
                 VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 invalidTags, VALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         assertThrows(IllegalValueException.class, patient::toModelType);
@@ -171,8 +203,8 @@ public class JsonAdaptedPatientTest {
     @Test
     public void toModelType_invalidAppointmentFormat_throwsIllegalValueException() {
         JsonAdaptedPatient patient =
-                new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_DOB, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                        VALID_TAGS, INVALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
+                new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB, VALID_PHONE, VALID_EMAIL,
+                    VALID_ADDRESS, VALID_TAGS, INVALID_APPT_START, VALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = Appointment.STARTTIME_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
     }
@@ -180,8 +212,8 @@ public class JsonAdaptedPatientTest {
     @Test
     public void toModelType_invalidAppointmentDuration_throwsIllegalValueException() {
         JsonAdaptedPatient patient =
-                new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_DOB, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                        VALID_TAGS, VALID_APPT_START, INVALID_APPT_DURATION, VALID_APPT_NOTE);
+                new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB, VALID_PHONE, VALID_EMAIL,
+                    VALID_ADDRESS, VALID_TAGS, VALID_APPT_START, INVALID_APPT_DURATION, VALID_APPT_NOTE);
         String expectedMessage = Appointment.DURATION_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, patient::toModelType);
     }
@@ -189,8 +221,8 @@ public class JsonAdaptedPatientTest {
     @Test
     public void toModelType_nullAppointment_returnsPatient() throws Exception {
         // Patients without appointments should load successfully
-        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_DOB, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TAGS, null, null, null);
+        JsonAdaptedPatient patient = new JsonAdaptedPatient(VALID_NAME, VALID_NRIC, VALID_SEX, VALID_DOB, VALID_PHONE,
+            VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, null, null, null);
         assertEquals(false, patient.toModelType().getAppointment().isPresent());
     }
 }

@@ -3,6 +3,7 @@
     {
       "name": "Alice Pauline",
       "nric": "S9435125A",
+      "sex": "F",
       "dob": "01-04-2003",
       "phone": "94351253",
       "email": "alice@example.com",
@@ -14,6 +15,7 @@
     {
       "name": "Alice Pauline",
       "nric": "S9435125A",
+      "sex": "F",
       "dob": "02-04-2003",
       "phone": "94351253",
       "email": "pauline@example.com",

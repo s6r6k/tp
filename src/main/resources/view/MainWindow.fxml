@@ -5,13 +5,15 @@
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.stage.Stage?>
 
+<?import javafx.scene.control.Label?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
          title="DoctorWho" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -25,15 +27,28 @@
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit" />
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
+        <HBox fx:id="menuBar" styleClass="menu-bar" VBox.vgrow="NEVER" alignment="CENTER_LEFT">
+          <MenuBar style="-fx-background-color: transparent; -fx-padding: 0;">
+            <Menu fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp">
+              <graphic>
+                <VBox alignment="CENTER" spacing="1" onMouseClicked="#handleHelp" style="-fx-cursor: hand;">
+                  <Label text="Help" style="-fx-font-size: 13px; -fx-text-fill: black;"/>
+                  <Label text="F1" style="-fx-font-size: 9px; -fx-text-fill: grey;"/>
+                </VBox>
+              </graphic>
+            </Menu>
+          </MenuBar>
+
+          <Region HBox.hgrow="ALWAYS" />
+
+          <MenuBar style="-fx-background-color: transparent; -fx-padding: 0;">
+            <Menu mnemonicParsing="false">
+              <graphic>
+                <Label text="Exit" onMouseClicked="#handleExit" style="-fx-cursor: hand; -fx-font-size: 13px; -fx-text-fill: black;"/>
+              </graphic>
+            </Menu>
+          </MenuBar>
+        </HBox>
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
           <padding>
