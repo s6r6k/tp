@@ -448,7 +448,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is `DoctorWho` and the **Actor** is the `Admin Staff`, unless specified otherwise)
+(For all use cases below, the **System** is `DoctorWho` and the **Actor** is the `Staff`, unless specified otherwise)
 
 **Use case: Schedule an appointment for an existing patient**
 
