@@ -16,6 +16,7 @@ import static doctorwho.logic.commands.CommandTestUtil.INVALID_CONDITION_DESC;
 import static doctorwho.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static doctorwho.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static doctorwho.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static doctorwho.logic.commands.CommandTestUtil.INVALID_PHONE_DESC_TOO_LONG;
 import static doctorwho.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static doctorwho.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static doctorwho.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
@@ -93,6 +94,7 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
+        assertParseFailure(parser, "1" + INVALID_PHONE_DESC_TOO_LONG, Phone.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_ALLERGY_DESC, Allergy.MESSAGE_CONSTRAINTS); // invalid allergy

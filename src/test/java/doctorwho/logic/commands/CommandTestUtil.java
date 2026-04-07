@@ -11,6 +11,7 @@ import static doctorwho.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_NAME;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_NRIC;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_PHONE;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_SEX;
 import static doctorwho.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -36,6 +37,8 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_NRIC_AMY = "S1234567D";
     public static final String VALID_NRIC_BOB = "S2345678H";
+    public static final String VALID_SEX_AMY = "F";
+    public static final String VALID_SEX_BOB = "M";
     public static final String VALID_DOB_AMY = "01-04-2003";
     public static final String VALID_DOB_BOB = "02-04-2003";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -51,6 +54,8 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String NRIC_DESC_AMY = " " + PREFIX_NRIC + VALID_NRIC_AMY;
     public static final String NRIC_DESC_BOB = " " + PREFIX_NRIC + VALID_NRIC_BOB;
+    public static final String SEX_DESC_AMY = " " + PREFIX_SEX + VALID_SEX_AMY;
+    public static final String SEX_DESC_BOB = " " + PREFIX_SEX + VALID_SEX_BOB;
     public static final String DOB_DESC_AMY = " " + PREFIX_DOB + VALID_DOB_AMY;
     public static final String DOB_DESC_BOB = " " + PREFIX_DOB + VALID_DOB_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -62,8 +67,10 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_NRIC_DESC = " " + PREFIX_NRIC + "1234567A"; // missing prefix letter
+    public static final String INVALID_SEX_DESC = " " + PREFIX_SEX + "X"; // 'X' not allowed, must be M or F
     public static final String INVALID_DOB_DESC = " " + PREFIX_DOB + "2003-02-04"; // yyyy-mm-dd
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_PHONE_DESC_TOO_LONG = " " + PREFIX_PHONE + "1234567890123456";
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_ALLERGY_DESC = " "
@@ -122,11 +129,11 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPatientDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withNric(VALID_NRIC_AMY).withDateOfBirth(VALID_DOB_AMY)
+                .withNric(VALID_NRIC_AMY).withSex(VALID_SEX_AMY).withDateOfBirth(VALID_DOB_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withAllergies(VALID_ALLERGY_ASPIRIN).withConditions(VALID_CONDITION_ASTHMA).build();
         DESC_BOB = new EditPatientDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withNric(VALID_NRIC_BOB).withDateOfBirth(VALID_DOB_BOB)
+                .withNric(VALID_NRIC_BOB).withSex(VALID_SEX_BOB).withDateOfBirth(VALID_DOB_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withAllergies(VALID_ALLERGY_IBUPROFEN, VALID_ALLERGY_ASPIRIN)
                 .withConditions(VALID_CONDITION_HYPERTENSION).build();

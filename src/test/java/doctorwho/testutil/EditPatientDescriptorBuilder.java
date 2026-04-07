@@ -12,6 +12,7 @@ import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Nric;
 import doctorwho.model.patient.Patient;
 import doctorwho.model.patient.Phone;
+import doctorwho.model.patient.Sex;
 import doctorwho.model.tag.Allergy;
 import doctorwho.model.tag.Condition;
 import doctorwho.model.tag.Tag;
@@ -38,6 +39,7 @@ public class EditPatientDescriptorBuilder {
         descriptor = new EditPatientDescriptor();
         descriptor.setName(patient.getName());
         descriptor.setNric(patient.getNric());
+        descriptor.setSex(patient.getSex());
         descriptor.setDateOfBirth(patient.getDateOfBirth());
         descriptor.setPhone(patient.getPhone());
         descriptor.setEmail(patient.getEmail());
@@ -76,6 +78,14 @@ public class EditPatientDescriptorBuilder {
      */
     public EditPatientDescriptorBuilder withNric(String nric) {
         descriptor.setNric(new Nric(nric));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Sex} of the {@code EditPatientDescriptor} that we are building.
+     */
+    public EditPatientDescriptorBuilder withSex(String sex) {
+        descriptor.setSex(new Sex(sex));
         return this;
     }
 

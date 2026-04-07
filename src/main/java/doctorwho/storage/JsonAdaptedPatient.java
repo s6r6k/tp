@@ -18,6 +18,7 @@ import doctorwho.model.patient.Name;
 import doctorwho.model.patient.Nric;
 import doctorwho.model.patient.Patient;
 import doctorwho.model.patient.Phone;
+import doctorwho.model.patient.Sex;
 import doctorwho.model.tag.Tag;
 
 /**
@@ -29,6 +30,7 @@ class JsonAdaptedPatient {
 
     private final String name;
     private final String nric;
+    private final String sex;
     private final String dob;
     private final String phone;
     private final String email;
@@ -44,6 +46,7 @@ class JsonAdaptedPatient {
     @JsonCreator
     public JsonAdaptedPatient(@JsonProperty("name") String name,
                               @JsonProperty("nric") String nric,
+                              @JsonProperty("sex") String sex,
                               @JsonProperty("dob") String dob,
                               @JsonProperty("phone") String phone,
                               @JsonProperty("email") String email,
@@ -54,6 +57,7 @@ class JsonAdaptedPatient {
                               @JsonProperty("appointmentNote") String appointmentNote) {
         this.name = name;
         this.nric = nric;
+        this.sex = sex;
         this.dob = dob;
         this.phone = phone;
         this.email = email;
@@ -72,6 +76,7 @@ class JsonAdaptedPatient {
     public JsonAdaptedPatient(Patient source) {
         name = source.getName().fullName;
         nric = source.getNric().value;
+        sex = source.getSex().value;
         dob = source.getDateOfBirth().toString();
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -114,6 +119,14 @@ class JsonAdaptedPatient {
             throw new IllegalValueException(Nric.MESSAGE_CONSTRAINTS);
         }
         final Nric modelNric = new Nric(nric);
+
+        if (sex == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Sex.class.getSimpleName()));
+        }
+        if (!Sex.isValidSex(sex)) {
+            throw new IllegalValueException(Sex.MESSAGE_CONSTRAINTS);
+        }
+        final Sex modelSex = new Sex(sex);
 
         if (dob == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -167,7 +180,7 @@ class JsonAdaptedPatient {
             modelAppointment = new Appointment(appointmentStart, appointmentDuration, appointmentNote);
         }
 
-        return new Patient(modelName, modelNric, modelDob, modelPhone,
+        return new Patient(modelName, modelNric, modelSex, modelDob, modelPhone,
                 modelEmail, modelAddress, modelTags, modelAppointment);
     }
 

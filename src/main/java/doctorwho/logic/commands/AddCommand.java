@@ -8,6 +8,7 @@ import static doctorwho.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_NAME;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_NRIC;
 import static doctorwho.logic.parser.CliSyntax.PREFIX_PHONE;
+import static doctorwho.logic.parser.CliSyntax.PREFIX_SEX;
 import static java.util.Objects.requireNonNull;
 
 import doctorwho.commons.util.ToStringBuilder;
@@ -27,6 +28,7 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_NRIC + "NRIC "
+            + PREFIX_SEX + "SEX "
             + PREFIX_DOB + "DOB "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
@@ -36,6 +38,8 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_NRIC + "S1234567D "
+            + PREFIX_SEX + "M "
+            + PREFIX_DOB + "16-01-2005 "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "

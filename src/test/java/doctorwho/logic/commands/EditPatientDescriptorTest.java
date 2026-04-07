@@ -11,6 +11,7 @@ import static doctorwho.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static doctorwho.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static doctorwho.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static doctorwho.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static doctorwho.logic.commands.CommandTestUtil.VALID_SEX_BOB;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -80,6 +81,10 @@ public class EditPatientDescriptorTest {
         editedAmy = new EditPatientDescriptorBuilder(DESC_AMY).withNric(VALID_NRIC_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
+        // different sex -> returns false
+        editedAmy = new EditPatientDescriptorBuilder(DESC_AMY).withSex(VALID_SEX_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
         // different dob -> returns false
         editedAmy = new EditPatientDescriptorBuilder(DESC_AMY).withDateOfBirth(VALID_DOB_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
@@ -107,6 +112,7 @@ public class EditPatientDescriptorTest {
         String expected = EditPatientDescriptor.class.getCanonicalName()
                 + "{name=" + editPatientDescriptor.getName().orElse(null)
                 + ", nric=" + editPatientDescriptor.getNric().orElse(null)
+                + ", sex=" + editPatientDescriptor.getSex().orElse(null)
                 + ", dob=" + editPatientDescriptor.getDateOfBirth().orElse(null)
                 + ", phone=" + editPatientDescriptor.getPhone().orElse(null)
                 + ", email=" + editPatientDescriptor.getEmail().orElse(null)
