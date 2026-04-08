@@ -20,6 +20,7 @@ Yes, if your clinic is still:
 - Dealing with long search times in Excel.
 - Paying exorbitant fees for enterprise grade software to track a handful of patients.
 
+---
 
 * Table of Contents
 {:toc}
