@@ -77,19 +77,19 @@ Don't worry if you're not tech-savvy — just follow these steps one by one and 
 Here is a quick reference list for the commands DoctorWho provides, more detailed information about all of the commands
 can be found in [Features](#features).
 
-| Action                                                   | Format, Examples                                                                                                                                                                                                                             |
-|----------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [**Add**](#adding-a-patient-add)                         | `add n/NAME ic/NRIC dob/DOB p/PHONE_NUMBER e/EMAIL a/ADDRESS [al/ALLERGY] [mc/CONDITION]…​` <br> e.g., `add n/James Ho ic/S1234567D dob/01-04-2003 p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 al/dust c/allergic rhinitis` |
-| [**List**](#listing-all-patients-list)                   | `list`                                                                                                                                                                                                                                       |
-| [**Edit**](#editing-a-patient-edit)                      | `edit PATIENT_NUMBER [n/NAME] [ic/NRIC] [dob/DOB] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [al/ALLERGY] [mc/CONDITION]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                 |
-| [**Find**](#locating-patients-by-name-find)              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                                                   |
-| [**Delete**](#deleting-a-patient-delete)                 | `delete PATIENT_NUMBER`<br> e.g., `delete 3`                                                                                                                                                                                                 |
-| [**Add appointment**](#adding-an-appointment-apt)        | `apt PATIENT_NUMBER d/DATETIME dur/DURATION [note/NOTE]`<br> e.g., `apt 2 d/01-04-2026 09:00 dur/60 note/Follow-up for diabetes review `                                                                                                     |
-| [**Delete appointment**](#deleting-an-appointment-dapt)  | `dapt PATIENT_NUMBER`<br> e.g., `dapt 1`                                                                                                                                                                                                     |
-| [**List appointments**](#listing-all-appointments-lsapt) | `lsapt [d/DATE]`<br> e.g., `lsapt`, `lsapt d/14-03-2026`                                                                                                                                                                                     |
-| [**Clear**](#clearing-all-entries-clear)                 | `clear`                                                                                                                                                                                                                                      |
-| [**Help**](#viewing-help-help)                           | `help`                                                                                                                                                                                                                                       |
-| [**Exit**](#exiting-the-program-exit)                    | `exit`                                                                                                                                                                                                                                       |
+| Action                                                   | Format, Examples                                                                                                                                                                                                                                   |
+|----------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [**Add**](#adding-a-patient-add)                         | `add n/NAME ic/NRIC x/SEX dob/DOB p/PHONE_NUMBER e/EMAIL a/ADDRESS [al/ALLERGY] [mc/CONDITION]…​` <br> e.g., `add n/James Ho ic/S1234567D dob/01-04-2003 p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 al/dust c/allergic rhinitis` |
+| [**List**](#listing-all-patients-list)                   | `list`                                                                                                                                                                                                                                             |
+| [**Edit**](#editing-a-patient-edit)                      | `edit PATIENT_NUMBER [n/NAME] [ic/NRIC] [dob/DOB] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [al/ALLERGY] [mc/CONDITION]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                       |
+| [**Find**](#locating-patients-by-name-find)              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                                                         |
+| [**Delete**](#deleting-a-patient-delete)                 | `delete PATIENT_NUMBER`<br> e.g., `delete 3`                                                                                                                                                                                                       |
+| [**Add appointment**](#adding-an-appointment-apt)        | `apt PATIENT_NUMBER d/DATETIME dur/DURATION [note/NOTE]`<br> e.g., `apt 2 d/01-04-2026 09:00 dur/60 note/Follow-up for diabetes review `                                                                                                           |
+| [**Delete appointment**](#deleting-an-appointment-dapt)  | `dapt PATIENT_NUMBER`<br> e.g., `dapt 1`                                                                                                                                                                                                           |
+| [**List appointments**](#listing-all-appointments-lsapt) | `lsapt [d/DATE]`<br> e.g., `lsapt`, `lsapt d/14-03-2026`                                                                                                                                                                                           |
+| [**Clear**](#clearing-all-entries-clear)                 | `clear`                                                                                                                                                                                                                                            |
+| [**Help**](#viewing-help-help)                           | `help`                                                                                                                                                                                                                                             |
+| [**Exit**](#exiting-the-program-exit)                    | `exit`                                                                                                                                                                                                                                             |
 
 ## Features
 
@@ -102,7 +102,7 @@ can be found in [Features](#features).
 
 * Items in square brackets are optional.<br>
   e.g., `n/NAME [al/ALLERGY]` can be used as `n/John Doe al/Aspirin` or as `n/John Doe`.
-  e.g., `n/NAME [mc/CONDITION]` can be used as `n/Johnny mc/High BP` or as `n/Johnny`
+  E.g., `n/NAME [mc/CONDITION]` can be used as `n/Johnny mc/High BP` or as `n/Johnny`
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g., `[al/ALLERGY]…​` can be used as ` ` (i.e., 0 times), `al/Penicillin`, `al/Ibuprofen al/Aspirin` etc.]
@@ -128,37 +128,6 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 ## DoctorWho Operations
-
-### Listing all patients: `list`
-
-Shows a list of all patients in DoctorWho.
-
-Format: `list`
-
-### Locating patients by name: `find`
-
-Finds patients whose names contain any of the given keywords.
-
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-* The search is case-insensitive. e.g., `hans` will match `Hans`
-* The order of the keywords does not matter. e.g., `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g., `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e., `OR` search).
-  e.g., `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Use `find` before `delete` or `edit` to locate the right patient 
-first. This reduces the risk of accidentally modifying the wrong 
-patient's records.
-</div>
-
-Examples:
-
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Adding a patient: `add`
 
@@ -198,6 +167,12 @@ Examples:
 * `add n/Betsy Crowe ic/S2345678H dob/02-04-2003 e/bcrowe@example.com a/Newgate Prison p/1234567 al/Penicillin mc/cold`
 * `add n/Tim Chal ic/S4567890C dob/03-04-2003 e/betsycrowe@example.com a/Newgate Prison p/1234567 al/Morphine`
 
+### Listing all patients: `list`
+
+Shows a list of all patients in DoctorWho.
+
+Format: `list`
+
 ### Editing a patient: `edit`
 
 Edits an existing patient in DoctorWho.
@@ -219,6 +194,30 @@ Examples:
 * `edit 2 n/Betsy Crower al/ mc/` Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing
   allergies and medical conditions.
 
+### Locating patients by name: `find`
+
+Finds patients whose names contain any of the given keywords.
+
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g., `hans` will match `Hans`
+* The order of the keywords does not matter. e.g., `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g., `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e., `OR` search).
+  e.g., `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use `find` before `delete` or `edit` to locate the right patient 
+first. This reduces the risk of accidentally modifying the wrong 
+patient's records.
+</div>
+
+Examples:
+
+* `find John` returns `john` and `John Doe`
+* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Deleting a patient: `delete`
 
