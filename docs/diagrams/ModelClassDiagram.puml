@@ -60,11 +60,12 @@ Patient -[hidden]up--> I
 UniquePatientList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
-Email -[hidden]right-> Appointment
+Phone -[hidden]right-> Nric
 Nric -[hidden]right-> Sex
 Sex -[hidden]right-> DateOfBirth
+DateOfBirth -[hidden]right-> Address
+Address -[hidden]right-> Email
+Email -[hidden]right-> Appointment
 
 ModelManager --> "~* filtered" Patient
 @enduml
