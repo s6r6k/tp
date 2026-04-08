@@ -25,5 +25,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_APPOINTMENT_NOTE = new Prefix("note/");
     public static final Prefix PREFIX_APPOINTMENT_DATE = new Prefix("d/");
 
-
 }

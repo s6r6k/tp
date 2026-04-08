@@ -49,7 +49,7 @@ HelpWindow --|> UiPart
 
 PatientCard ..> Model
 UiManager -right-> Logic
-MainWindow -left-> Logic
+MainWindow -right-> Logic
 
 PatientListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
