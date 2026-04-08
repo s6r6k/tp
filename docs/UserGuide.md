@@ -148,12 +148,12 @@ replacements you can use if you encounter these special characters:
 | Diacritics | Jäger           | Jager                          | Not planned                                                |
 | Slash (/)  | Ali s/o Ahmad   | Ali so Ahmad<br>Ali SO Ahmad   | [Planned](DeveloperGuide.md#appendix-planned-enhancements) |
 
-**Note (NRIC validation):**<br/>
-DoctorWho prevents invalid NRIC/FIN entries. For both `add` and `edit`, the `ic/` value must use a valid entry; otherwise the command is rejected. <br/>
-  NRIC is how the program checks if an entry already exists. This allows for multiple same names.
+**Note (NRIC validation):**<br>
+DoctorWho prevents invalid NRIC/FIN entries. For both `add` and `edit`, the `ic/` value must contain a valid NRIC/FIN in the required format; otherwise, the command is rejected. <br/>
+  DoctorWho uses the NRIC/FIN to check whether an entry already exists, so duplicate NRIC/FIN values are rejected, while multiple patients may share the same name.
 
 **Sex:**<br/>
-Limited to only male `x/M` or female `x/F`, though edits are allowed.
+Limited to male or female values only; `x/` accepts `M` or `F` case-insensitively (for example, `x/M`, `x/F`, `x/m`, and `x/f` are valid), though edits are allowed.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A patient can have any number of allergies or medical conditions (including 0)
