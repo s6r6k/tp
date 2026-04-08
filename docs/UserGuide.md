@@ -348,7 +348,7 @@ Furthermore, certain edits can cause the DoctorWho to behave in unexpected ways 
 
 Automatic archiving is not yet supported. In the meantime, we recommend
 periodically making a manual copy of your data file located at
-`[JAR file location]/data/DoctorWho.json` and storing it in a separate
+`[JAR file location]/data/doctorwho.json` and storing it in a separate
 folder as a backup.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -370,7 +370,7 @@ folder as a backup.
 **A**: Deletion is irreversible and the patient's data cannot be
 recovered from within the app. To safeguard against accidental
 deletion, we recommend periodically making a manual copy of your
-data file located at `[JAR file location]/data/DoctorWho.json`
+data file located at `[JAR file location]/data/doctorwho.json`
 and storing it in a separate folder. If you have a copy, you can
 restore it by replacing the current data file with your backup.
 
@@ -387,7 +387,7 @@ appointments per patient is planned for a future version.
 **Q**: How do I transfer my data to another computer?<br>
 **A**: Install the app on the other computer and overwrite the
 empty data file it creates with the file from your previous
-DoctorWho folder, located at `[JAR file location]/data/DoctorWho.json`.
+DoctorWho folder, located at `[JAR file location]/data/doctorwho.json`.
 
 --------------------------------------------------------------------------------------------------------------------
 
