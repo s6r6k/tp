@@ -152,4 +152,16 @@ public class AddAppointmentCommandParserTest {
                 Messages.getErrorMessageForDuplicatePrefixes(
                         PREFIX_APPOINTMENT_NOTE));
     }
+
+    @Test
+    public void parse_noteTooLong_failure() {
+        String overlongNote = " note/" + "a".repeat(Appointment.MAX_LENGTH + 1);
+        String userInput = INDEX_FIRST_PATIENT.getOneBased()
+                        + APPOINTMENT_STARTTIME_DESC_VALID
+                        + APPOINTMENT_DURATION_DESC_VALID
+                        + overlongNote;
+
+        assertParseFailure(parser, userInput, AddAppointmentCommandParser.MESSAGE_NOTE_TOO_LONG);
+    }
+
 }

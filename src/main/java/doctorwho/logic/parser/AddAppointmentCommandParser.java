@@ -18,6 +18,9 @@ import doctorwho.model.patient.Appointment;
  */
 public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand> {
 
+    public static final String MESSAGE_NOTE_TOO_LONG =
+            String.format("Appointment note must not exceed %d characters.", Appointment.MAX_LENGTH);
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddAppointmentCommand
      * and returns an AddAppointmentCommand object for execution.
@@ -53,6 +56,10 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         String startTimeStr = argMultimap.getValue(PREFIX_APPOINTMENT_STARTTIME).get();
         int duration = ParserUtil.parsePositiveInteger(argMultimap.getValue(PREFIX_APPOINTMENT_DURATION).get());
         String note = argMultimap.getValue(PREFIX_APPOINTMENT_NOTE).orElse("");
+
+        if (note.length() > Appointment.MAX_LENGTH) {
+            throw new ParseException(MESSAGE_NOTE_TOO_LONG);
+        }
 
         Appointment appointment;
 

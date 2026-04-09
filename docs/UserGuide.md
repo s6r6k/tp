@@ -259,6 +259,7 @@ Format: `apt PATIENT_NUMBER d/DATETIME dur/DURATION [note/NOTE]`
 * The date and time must be in the format `dd-MM-yyyy HH:mm` e.g., `12-03-2026 14:00` refers to 12th March 2026, 14:00.
 * The duration **must be a positive integer** in **minutes**.
 * The note is optional.
+* If provided, `NOTE` must be at most **500 characters**.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If the patient already has an existing appointment, it will be 
