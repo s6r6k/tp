@@ -3,7 +3,6 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
-skinparam maxMessageSize 300
 scale 1.5
 
 Package Model as ModelPackage <<Rectangle>>{
