@@ -532,13 +532,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-* 1d. Appointment is a duplicate of an existing appointment for the same patient.
+* 1d. New appointment overlaps with an existing appointment.
     * 1d1. DoctorWho shows an error message.
-
-      Use case ends.
-
-* 1e. New appointment overlaps with an existing appointment.
-    * 1e1. DoctorWho shows an error message.
 
       Use case ends.
 
