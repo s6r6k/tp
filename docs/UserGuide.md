@@ -164,6 +164,23 @@ DoctorWho prevents invalid NRIC/FIN entries. For both `add` and `edit`, the `ic/
 **Sex:**<br/>
 Limited to male or female values only; `x/` accepts `M` or `F` case-insensitively (for example, `x/M`, `x/F`, `x/m`, and `x/f` are valid), though edits are allowed.
 
+**Phone number (`p/`):**<br/>
+For both `add` and `edit`, must contain only digits and be between **3 and 15 digits** long (inclusive).<br/>
+Examples of valid values: `p/123`, `p/98765432`, `p/651234567890123`.<br/>
+Examples of invalid values: `p/+6598765432`, `p/12`, `p/123-4567`.
+
+**Email (`e/`):**<br/>
+For both `add` and `edit`, emails should be of the format local-part@domain and adhere to the following constraints:
+1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
+2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.
+The domain name must:
+  * end with a domain label at least 2 characters long
+  * have each domain label start and end with alphanumeric characters
+  * have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+
+Examples of valid values: `e/alex.tan+clinic@example.com`, `e/a_b-c@sub-domain.example`.<br/>
+Examples of invalid values: `e/.alex@example.com`, `e/alex@-example.com`, `e/alex@example.c`.
+
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
