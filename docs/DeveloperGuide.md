@@ -150,7 +150,7 @@ How the parsing works:
 
 **API** : [`Model.java`](https://github.com/AY2526S2-CS2103T-F10-1/tp/tree/master/src/main/java/doctorwho/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/ModelClassDiagram.png" width="800" />
 
 
 The `Model` component,
@@ -166,7 +166,7 @@ The `Model` component,
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Patient` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Patient` needing their own `Tag` objects.<br>
 
-<img src="images/BetterModelClassDiagram.png" width="450" />
+<img src="images/BetterModelClassDiagram.png" width="700" />
 
 </div>
 
@@ -877,14 +877,14 @@ testers are expected to do more *exploratory* testing.
 
 1. Dealing with missing data file
     1. Close the app.
-    2. Navigate to `[JAR file location]/data/` and delete `DoctorWho.json`.
+    2. Navigate to `[JAR file location]/data/` and delete `doctorwho.json`.
     3. Re-launch the app.
 
-       Expected: App starts with sample patient data. A new `DoctorWho.json` is created.
+       Expected: App starts with sample patient data. A new `doctorwho.json` is created.
 
 2. Dealing with corrupted data file
     1. Close the app.
-    2. Open `[JAR file location]/data/DoctorWho.json` in a text editor.
+    2. Open `[JAR file location]/data/doctorwho.json` in a text editor.
     3. Delete a random line in the middle of the file and save.
     4. Re-launch the app.
 
