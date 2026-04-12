@@ -767,7 +767,7 @@ testers are expected to do more *exploratory* testing.
        Expected: No patient added. Error message shown with correct command format.
 
 3. Adding a duplicate patient
-    1. Prerequisites: Patient `John Doe` with NRIC `T0123456H` already exists (added in test case 1).
+    1. Prerequisites: Patient `John Doe` with NRIC `S9876543C` already exists (added in test case 1).
     2. Test case: `add n/John Doe ic/S9876543C x/M dob/01-01-2000 p/98765432 e/johnd@example.com a/123 Clementi Ave`
 
        Expected: No patient added. Error message indicating duplicate patient.
